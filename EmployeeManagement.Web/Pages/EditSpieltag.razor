@@ -1,0 +1,77 @@
+﻿@page "/editspieltag/{id}"
+@page "/editspieltag"
+
+@inherits EditSpieltagBase
+
+<EditForm Model="@EditSpieltagModel" OnValidSubmit="HandleValidSubmit">
+    <ObjectGraphDataAnnotationsValidator />
+    <h3>@PageHeaderText</h3>
+    <hr />
+    <div class="form-group row">
+        <label for="verein1" class="col-sm-2 col-form-label">
+            Verein 1
+        </label>
+        <div class="col-sm-10">
+            <InputText id="verein1" class="form-control" placeholder="Verein 1"
+            @bind-Value="EditSpieltagModel.Verein1.Vereinsname1" />
+            <ValidationMessage For="@(() => EditSpieltagModel.Verein1.Vereinsname1)" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="verein2" class="col-sm-2 col-form-label">
+           Verein 2
+        </label>
+        <div class="col-sm-10">
+            <InputText id="verein2" class="form-control" placeholder="Verein 2"
+            @bind-Value="EditSpieltagModel.Verein2.Vereinsname1" />
+            <ValidationMessage For="@(() => EditSpieltagModel.Verein2.Vereinsname2)" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="tore1" class="col-sm-2 col-form-label">
+            Tore 1
+        </label>
+        <div class="col-sm-10">
+            <InputNumber id="tore1" class="form-control" placeholder="Tore 1"
+            @bind-Value="EditSpieltagModel.Tore1" />
+            <ValidationMessage For="@(() => EditSpieltagModel.Tore1)" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="tore1" class="col-sm-2 col-form-label">
+            Tore 2
+        </label>
+        <div class="col-sm-10">
+            <InputNumber id="tore1" class="form-control" placeholder="Tore 2"
+            @bind-Value="EditSpieltagModel.Tore2" />
+            <ValidationMessage For="@(() => EditSpieltagModel.Tore2)" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="ort" class="col-sm-2 col-form-label">
+            Ort
+        </label>
+        <div class="col-sm-10">
+            <InputText id="ort" class="form-control" placeholder="Ort"
+            @bind-Value="EditSpieltagModel.Ort" />
+            <ValidationMessage For="@(() => EditSpieltagModel.Ort)" />
+        </div>
+    </div>  
+    <div class="form-group row">
+        <label for="Datum" class="col-sm-2 col-form-label">
+            Datum
+        </label>
+        <div class="col-sm-10">
+            <InputDate @bind-Value="EditSpieltagModel.Datum" placeholder="Datum" class="form-control" />
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Abschicken</button>
+    @if (EditSpieltagModel.SpieltagId > 0)
+    {
+        <button class="btn btn-danger" type="button" @onclick="Delete_Click">Löschen</button>
+    }   
+</EditForm>
+
+<Confirm @ref="DeleteConfirmation" ConfirmationChanged="ConfirmDelete_Click"
+         ConfirmationMessage=@($"Möchten Sie den Datensatz mit der ID löschen \"{EditSpieltagModel.SpieltagId}\"")>
+</Confirm>

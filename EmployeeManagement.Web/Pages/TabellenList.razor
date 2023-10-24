@@ -1,0 +1,49 @@
+﻿@page "/tabellen"
+@inherits TabellenListBase
+@attribute [Authorize]
+
+<style type="text/css">
+    .list-group-item {
+        position: relative;
+        display: block;
+        padding: 0.5rem 0.5rem !important;
+        margin-bottom: -1px;
+        background-color: #fff;
+        border: 1px solid rgba(0,0,0,.125);
+    }
+
+</style>
+@if (Tabellen == null)
+{
+    <div class="spinner"></div>
+}
+else
+{
+    <div class="card-deck">
+        <h2 style="margin-left:5px;">Bundesliga 2023/24 Tabelle</h2>
+        <label>
+
+            @* @onchange="SelectedSpieltagChanged" *@
+            <select id="cboSpieltage2" style="margin-left:5px;" class="form-control dropdown" @bind="@SelectedspieltagID">
+
+                @foreach (var spieltag in SpieltagList)
+                {
+                    <option value="@spieltag.Nummer"> @spieltag.Name </option>
+                }
+
+            </select>
+            <br />
+            <p>@SelectedspieltagID</p>
+
+        </label>
+        <br>
+    </div>
+       
+    @foreach (var tabelle in Tabellen)
+    {
+        <EditForm Model="@Tabellen">
+            <DisplayTabelle Tabelle="tabelle"></DisplayTabelle>
+        </EditForm>
+
+    }
+}

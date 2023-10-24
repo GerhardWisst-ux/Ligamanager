@@ -1,0 +1,41 @@
+﻿@page "/vereine"
+@using LigaManagerManagement.Web.Pages;
+@inherits VereineListBase 
+
+@attribute [Authorize]
+
+
+
+@if (Vereine == null)
+{
+    <div class="spinner"></div>
+}
+else
+{
+    <h2>Vereine</h2>
+    <br />
+    @foreach (var verein in Vereine)
+    {
+        <div>
+            <EditForm Model="@Vereine">
+                <label>
+                    <InputNumber style="min-height:38px;width:80px;" tabindex="1" @bind-Value=verein.VereinNr />
+                </label>
+                <label>
+                    <InputText style="min-height:38px;width:180px;" tabindex="2" @bind-Value=verein.Vereinsname1 />
+                </label>
+
+            </EditForm>
+        </div>       
+    }
+
+    <NavLink class="nav-link" href="/editverein" Match="NavLinkMatch.All">
+        <span class="oi oi-file" aria-hidden="true"></span>
+        Neu
+    </NavLink>
+    <NavLink class="nav-link" href="/editverein/1" Match="NavLinkMatch.All">
+        <span class="oi oi-pencil" aria-hidden="true"></span>
+        Bearbeiten
+    </NavLink>
+
+}

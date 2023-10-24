@@ -1,0 +1,53 @@
+﻿@inherits DisplaySpieltagBase
+<style type="text/css">
+    .list-group-item {
+        position: relative;
+        display: block;
+        padding: 0.5rem 0.5rem !important;
+        margin-bottom: -1px;
+        background-color: #fff;
+        border: 1px solid rgba(0,0,0,.125);
+    }
+
+</style>
+
+@* @if (Spieltag == null || Spieltag.Verein == null)
+{
+    <div class="spinner"></div>
+}
+else
+{ *@
+
+@{
+    
+}
+
+
+    <ul class=" form-controllist-group list-group-horizontal  d-flex flex-wrap">
+    <li class="list-group-item"><InputText id="txtVerein1" style="min-height:38px;width:200px;" tabindex="1" @bind-Value=Spieltag.Verein1 /></li>
+        <li class="list-group-item"><InputText id="txtVerein2" style="min-height:38px;width:175px;" tabindex="2" @bind-Value=Spieltag.Verein2 /></li>
+        <li class="list-group-item"><InputNumber id="txtTore1" style="min-height:38px; width:40px;text-align:right;" tabindex="3" @bind-Value=Spieltag.Tore1_Nr /></li>
+        <li class="list-group-item"><InputNumber id="txtTore2" style="min-height:38px; width:40px;text-align:right;" tabindex="4" @bind-Value=Spieltag.Tore2_Nr /></li>
+        <li class="list-group-item"><InputText id="txtOrt" style="min-height:38px;width:200px;" tabindex="5" @bind-Value=Spieltag.Ort /></li>
+        <li class="list-group-item"><InputDate id="txtDatum" style="min-height:38px;width:110px;" tabindex="6" @bind-Value=Spieltag.Datum /></li>
+
+        <li class="list-group-item">
+            <a href="@($"spieltagdetails/{Spieltag.SpieltagId}")"
+               class="btn btn-primary">A</a>
+        </li>
+        <li class="list-group-item">
+            <a href="@($"editspieltag/{Spieltag.SpieltagId}")"
+               class="btn btn-primary">B</a>
+        </li>
+        <li class="list-group-item">
+            <button type="button" class="btn btn-danger"
+            @onclick="Delete_Click">
+                L
+            </button>
+        </li>
+    </ul>
+@* } *@
+
+
+<Confirm ConfirmationChanged="ConfirmDelete_Click" @ref="DeleteConfirmation"
+         ConfirmationMessage=@($"Möchten Sie wirklich diese Spielpaarung löschen \"{Spieltag.SpieltagId}\"")></Confirm>
