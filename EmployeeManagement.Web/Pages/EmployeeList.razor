@@ -1,22 +1,25 @@
 ﻿@page "/"
-@inherits LigaManagerManagement.Web.Pages.EmployeeListBase
+@inherits LigaManagerManagement.Web.Pages.EinstiegListBase
 @attribute [Authorize]
 
-<h3>Selected Employees Count - @SelectedEmployeesCount</h3>
-<input type="checkbox" id="showFooter" @bind="ShowFooter" />
-<label for="showFooter">Show Footer</label>
-@if (Employees == null)
-{
-    <div class="spinner"></div>
-}
-else
-{
-    <div class="card-deck">
-        @foreach (var employee in Employees)
-        {
-            <DisplayEmployee Employee="employee" ShowFooter="ShowFooter"
-                             OnEmployeeSelection="EmployeeSelectionChanged"
-                             OnEmployeeDeleted="EmployeeDeleted"></DisplayEmployee>
-        }
+<h3>Start Ligamanager</h3>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            Liga wählen
+        </div>
+        <div class="col-sm">
+            Saison wählen
+            <select id="cboSpieltage2" style="margin-left:5px;" class="form-control dropdown" @onchange="SaisonChange">
+
+                @foreach (var saison in SaisonenList)
+                {
+                    <option value="@saison.SaisonID"> @saison.Saisonname </option>
+                }
+            </select>
+            <br />
+        </div>        
     </div>
-}
+</div>```
+

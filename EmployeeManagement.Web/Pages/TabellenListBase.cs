@@ -1,5 +1,5 @@
-﻿using LigaManagerManagement.Models;
-using LigaManagerManagement.Web.Services;
+﻿using LigamanagerManagement.Web.Services.Contracts;
+using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections;
@@ -55,13 +55,20 @@ namespace LigamanagerManagement.Web.Pages
             Tabellen = (await TabelleService.GetTabellen()).ToList();
         }
 
-
         protected async void SelectedSpieltagChanged(ChangeEventArgs e)
         {
             if (e.Value != null)
             {
                 spieltag = Convert.ToInt32(e.Value);
                 Tabellen = await TabelleService.BerechneTabelle(SpieltagService, Vereine, spieltag);
+            }
+        }
+        public async Task SpieltagChange(ChangeEventArgs e)
+        {
+            if (e.Value != null)
+            {
+                spieltag = Convert.ToInt32(e.Value);
+                Tabellen = await TabelleService.BerechneTabelle(SpieltagService, Vereine, spieltag);                
             }
         }
 

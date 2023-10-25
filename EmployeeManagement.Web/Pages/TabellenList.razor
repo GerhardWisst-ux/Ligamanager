@@ -19,26 +19,20 @@
 }
 else
 {
-    <div class="card-deck">
-        <h2 style="margin-left:5px;">Bundesliga 2023/24 Tabelle</h2>
-        <label>
+    <h2 style="margin-left:5px;">Bundesliga 2023/24 Tabelle</h2>
+    <label>
+        <select id="cboSpieltage2" style="margin-left:5px;" class="form-control dropdown" @onchange="SpieltagChange">
 
-            @* @onchange="SelectedSpieltagChanged" *@
-            <select id="cboSpieltage2" style="margin-left:5px;" class="form-control dropdown" @bind="@SelectedspieltagID">
+            @foreach (var spieltag in SpieltagList)
+            {
+                <option value="@spieltag.Nummer"> @spieltag.Name </option>
+            }
+        </select>
+        <br />
+    </label>
+    <p>@SelectedspieltagID</p>
+    <br>
 
-                @foreach (var spieltag in SpieltagList)
-                {
-                    <option value="@spieltag.Nummer"> @spieltag.Name </option>
-                }
-
-            </select>
-            <br />
-            <p>@SelectedspieltagID</p>
-
-        </label>
-        <br>
-    </div>
-       
     @foreach (var tabelle in Tabellen)
     {
         <EditForm Model="@Tabellen">
@@ -47,3 +41,4 @@ else
 
     }
 }
+

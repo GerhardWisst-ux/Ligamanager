@@ -1,0 +1,47 @@
+﻿@page "/saisonen"
+@using LigaManagerManagement.Web.Pages;
+@inherits SaisonenListBase
+
+@attribute [Authorize]
+
+@if (Saisonen == null)
+{
+    <div class="spinner"></div>
+}
+else
+{
+    <h2>Saisonen</h2>
+    <br />
+    @foreach (var saison in Saisonen)
+    {
+        <div>
+            <EditForm Model="@Saisonen">
+                <label>
+                    <InputNumber style="min-height:38px;width:80px;" tabindex="1" @bind-Value=saison.SaisonID />
+                </label>
+                <label>
+                    <InputText style="min-height:38px;width:180px;" tabindex="2" @bind-Value=saison.Saisonname />
+                </label>
+                <label>
+                    <InputText style="min-height:38px;width:180px;" tabindex="3" @bind-Value=saison.Liganame />
+                </label>
+               @*  <label>
+                    <InputNumber style="min-height:38px;width:180px;" tabindex="4" @bind-Value=saison.Aktuell />
+                </label>
+                <label>
+                    <InputNumber style="min-height:38px;width:180px;" tabindex="5" @bind-Value=saison.Abgeschlossen />
+                </label>         *@        
+            </EditForm>
+        </div>  
+    }
+
+    <NavLink class="nav-link" href="/editverein" Match="NavLinkMatch.All">
+        <span class="oi oi-file" aria-hidden="true"></span>
+        Neu
+    </NavLink>
+    <NavLink class="nav-link" href="/editverein/1" Match="NavLinkMatch.All">
+        <span class="oi oi-pencil" aria-hidden="true"></span>
+        Bearbeiten
+    </NavLink>
+
+}

@@ -1,11 +1,9 @@
 ﻿using LigaManagerManagement.Models;
 using Microsoft.EntityFrameworkCore;
+using SpieltagManagement.Api.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using SpieltagManagement.Api.Models;
-using LigaManagerManagement.Api.Models;
 
 namespace LigaManagerManagement.Api.Models
 {

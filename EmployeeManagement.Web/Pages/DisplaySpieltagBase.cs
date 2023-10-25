@@ -1,5 +1,5 @@
-﻿using LigaManagerManagement.Models;
-using LigaManagerManagement.Web.Services;
+﻿using LigamanagerManagement.Web.Services.Contracts;
+using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 
@@ -9,7 +9,9 @@ namespace LigamanagerManagement.Web.Pages
     {
         [Parameter]
         public Spieltag Spieltag { get; set; }
-               
+
+        public int SpieltagNr { get; set; }
+
         [Parameter]
         public EventCallback<bool> OnSpieltagSelection { get; set; }
 

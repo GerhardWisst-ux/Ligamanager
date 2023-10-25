@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using LigamanagerManagement.Web.Services.Contracts;
 using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 

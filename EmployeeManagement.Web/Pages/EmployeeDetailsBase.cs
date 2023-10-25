@@ -1,5 +1,5 @@
-﻿using LigaManagerManagement.Models;
-using LigaManagerManagement.Web.Services;
+﻿using LigamanagerManagement.Web.Services.Contracts;
+using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using System;

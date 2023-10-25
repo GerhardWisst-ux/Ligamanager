@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using LigamanagerManagement.Web.Services.Contracts;
 using LigaManagerManagement.Web.Models;
 using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Builder;
@@ -33,19 +34,12 @@ namespace LigaManagerManagement.Web
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddAutoMapper(typeof(EmployeeProfile));
-            services.AddHttpClient<IEmployeeService, EmployeeService>(client =>
-            {
-                client.BaseAddress = new Uri("https://localhost:44379/");
-            });
-            services.AddHttpClient<IDepartmentService, DepartmentService>(client =>
-            {
-                client.BaseAddress = new Uri("https://localhost:44379/");
-            });
 
             services.AddHttpClient<ISpieltagService, SpieltagService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:44379/");
             });
+                       
 
             services.AddHttpClient<IVereineService, VereineService>(client =>
             {
@@ -56,6 +50,18 @@ namespace LigaManagerManagement.Web
             {
                 client.BaseAddress = new Uri("https://localhost:44379/");
             });
+            services.AddHttpClient<ISaisonenService, SaisonenService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44379/");
+            });
+            services.AddHttpClient<IEmployeeService, EmployeeService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44379/");
+            });
+            services.AddHttpClient<IDepartmentService, DepartmentService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44379/");
+            });           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

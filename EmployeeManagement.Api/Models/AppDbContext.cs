@@ -19,6 +19,7 @@ namespace LigaManagerManagement.Api.Models
         public DbSet<Spieltag> Spieltage { get; set; }
         public DbSet<Verein> Vereine { get; set; }
         public DbSet<Tabelle> Tabellen { get; set; }
+        public DbSet<Saison> Saisonen { get; set; }
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
         //    base.OnModelCreating(modelBuilder);

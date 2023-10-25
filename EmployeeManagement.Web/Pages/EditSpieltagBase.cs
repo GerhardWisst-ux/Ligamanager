@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using LigamanagerManagement.Web.Services.Contracts;
 using LigaManagerManagement.Models;
-using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using SpieltagManagement.Web.Models;

@@ -1,14 +1,7 @@
 ﻿@inherits DisplayTabelleBase
 
 <style type="text/css">
-
-    @@media screen and (min-width: 768px) and (max-width: 3000px) {
-
-        .priority-2 {
-            display: none;
-        }
-    }
-
+       
     @@media screen and (max-width: 767px) {
 
         .priority-2 {
@@ -21,6 +14,7 @@
         display: block;
         padding: 0.2rem 0.2rem !important;
         margin-bottom: -1px;
+        pointer-events:none;
         background-color: #dee2e6;
         border: 0px solid #dee2e6; /*        rgba(0,0,0,.125); */
     }
@@ -51,6 +45,16 @@
             margin: -5.5px;
         }
 
+    table {
+        border-collapse: collapse;
+    }
+
+        table.sectioned tbody {
+            border: 1px solid darkgray;
+            border-collapse: separate;
+            border-spacing: 4px;
+        }
+
 </style>
 
 
@@ -60,14 +64,14 @@
 }
 else
 {
-    <div class="table-responsive" style="max-width:98%;">
+    <div class="table-responsive" style="max-width:60%;">
         <table class="table table-striped">
             @if (Tabelle.Platz == 1)
             {
                 <thead>
                     <tr>
                         <th class="priority-1" style="height:40px;max-width:37px;" scope="col">P</th>
-                        <th class="priority-1" style="height:40px;" scope="col">V</th>
+                        <th class="priority-1" style="height:40px;max-width:100%;" scope="col">V</th>
                         <th class="priority-1" style="height:40px;max-width:37px;" scope="col">S</th>
                         <th class="priority-2" style="height:40px;max-width:30px;" scope="col">S</th>
                         <th class="priority-2" style="height:40px;max-width:30px;" scope="col">U</th>
@@ -85,15 +89,15 @@ else
                         int DispDiff = Tabelle.TorePlus - Tabelle.ToreMinus;
                     }
 
-                    <td><InputNumber id="txtPlatz" class="TableElement priority-1" style="max-height:30px; max-width:37px; text-align:right;" tabindex="1" @bind-Value=Tabelle.Platz /></td>
-                    <td><InputText id="txtVerein" class="TableElement priority-1" style="max-height:30px;" tabindex="2" @bind-Value=Tabelle.Verein /></td>
-                    <td><InputNumber id="txtSpiele" class="TableElement priority-1" style="max-height:30px; max-width:37px; text-align:right;" tabindex="3" @bind-Value=Tabelle.Spiele /></td>
-                    <td><InputNumber id="txtGewonnen" class="TableElement priority-2" style="max-height:30px; max-width:30px; text-align:right;" tabindex="4" @bind-Value=Tabelle.Gewonnen /></td>
-                    <td><InputNumber id="txtUntentschieden" class="TableElement priority-2" style="max-height:30px;max-width:30px; text-align:right;" tabindex="5" @bind-Value=Tabelle.Untentschieden /></td>
-                    <td><InputNumber id="txtVerloren" class="TableElement priority-2" style="max-height:30px;max-width:30px; text-align:right;" tabindex="6" @bind-Value=Tabelle.Verloren /></td>
-                    <td><InputText id="txtTore" class="TableElement priority-2" style="max-height:30px;max-width:47px; text-align:right;" tabindex="7" @bind-Value=dispTore /></td>
-                    <td><InputNumber id="txtDiff" class="TableElement priority-2" style="max-height:30px;max-width:50px; text-align:right;" tabindex="8" @bind-Value=DispDiff /></td>
-                    <td><InputNumber id="txtPunkte" class="TableElement priority-1" style="max-height:30px;max-width:37px;text-align:right;color:red;" tabindex="9" @bind-Value=Tabelle.Punkte /></td>
+                    <td><InputNumber readonly  id="txtPlatz" class="TableElement priority-1" style="max-height:30px; max-width:37px; text-align:right;pointer-events:none;" tabindex="1" @bind-Value=Tabelle.Platz /></td>
+                    <td><InputText readonly id="txtVerein" class="TableElement priority-1" style="max-height:30px;max-width:100%;pointer-events:none;" tabindex="2" @bind-Value=Tabelle.Verein /></td>
+                    <td><InputNumber readonly id="txtSpiele" class="TableElement priority-1" style="max-height:30px; max-width:37px; text-align:right;pointer-events:none;" tabindex="3" @bind-Value=Tabelle.Spiele /></td>
+                    <td><InputNumber readonly id="txtGewonnen" class="TableElement priority-2" style="max-height:30px; max-width:30px; text-align:right;pointer-events:none;" tabindex="4" @bind-Value=Tabelle.Gewonnen /></td>
+                    <td><InputNumber readonly id="txtUntentschieden" class="TableElement priority-2" style="max-height:30px;max-width:30px; text-align:right;pointer-events:none;" tabindex="5" @bind-Value=Tabelle.Untentschieden /></td>
+                    <td><InputNumber readonly id="txtVerloren" class="TableElement priority-2" style="max-height:30px;max-width:30px; text-align:right;pointer-events:none;" tabindex="6" @bind-Value=Tabelle.Verloren /></td>
+                    <td><InputText readonly id="txtTore" class="TableElement priority-2" style="max-height:30px;max-width:47px; text-align:right;pointer-events:none;" tabindex="7" @bind-Value=dispTore /></td>
+                    <td><InputNumber readonly id="txtDiff" class="TableElement priority-2" style="max-height:30px;max-width:50px; text-align:right;pointer-events:none;" tabindex="8" @bind-Value=DispDiff /></td>
+                    <td><InputNumber readonly id="txtPunkte" class="TableElement priority-1" style="max-height:30px;max-width:37px;text-align:right;color:red;pointer-events:none;" tabindex="9" @bind-Value=Tabelle.Punkte /></td>
                 </tr>
 
                 @if (Tabelle.Platz == 4 || Tabelle.Platz == 5 || Tabelle.Platz == 6 || Tabelle.Platz == 15 || Tabelle.Platz == 16)
