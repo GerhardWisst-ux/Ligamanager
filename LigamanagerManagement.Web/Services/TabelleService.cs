@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections;
+﻿using LigamanagerManagement.Web.Services.Contracts;
+using LigaManagerManagement.Models;
+using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using LigamanagerManagement.Web.Services.Contracts;
-using LigaManagerManagement.Models;
-using Microsoft.AspNetCore.Components;
 
 namespace LigaManagerManagement.Web.Services
 {

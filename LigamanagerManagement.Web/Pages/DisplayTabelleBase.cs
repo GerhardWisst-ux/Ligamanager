@@ -28,12 +28,12 @@ namespace LigamanagerManagement.Web.Pages
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
-        protected Ligamanager.Components.ConfirmBase DeleteConfirmation { get; set; }
+        //protected Ligamanager.Components.ConfirmBase DeleteConfirmation { get; set; }
 
-        protected void Delete_Click()
-        {
-            DeleteConfirmation.Show();
-        }
+        //protected void Delete_Click()
+        //{
+        //    DeleteConfirmation.Show();
+        //}
         
         protected async Task ConfirmDelete_Click(bool deleteConfirmed)
         {

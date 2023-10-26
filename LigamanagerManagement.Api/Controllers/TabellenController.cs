@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using LigaManagerManagement.Models;
 using TabellenManagement.Api.Models;
+using LigaManagerManagement.Models;
 
 namespace TabellenManagement.Api.Controllers
 {

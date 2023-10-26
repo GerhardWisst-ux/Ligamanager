@@ -1,29 +1,29 @@
-﻿using SpieltagManagement.Api.Models;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using LigaManagerManagement.Models;
+using SpieltagManagement.Api.Models;
 
 namespace VereinManagement.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SaisonenController : ControllerBase
+    public class VereineController : ControllerBase
     {
-        private readonly ISaisonRepository SaisonRepository;
+        private readonly SpieltagManagement.Api.Models.IVereinRepository VereinRepository;
 
-        public SaisonenController(ISaisonRepository SaisonRepository)
+        public VereineController(IVereinRepository VereinRepository)
         {
-            this.SaisonRepository = SaisonRepository;
+            this.VereinRepository = VereinRepository;
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetSaisonen()
+        public async Task<ActionResult> GetVereine()
         {
             try
             {
-                return Ok(await SaisonRepository.GetSaisonen());
+                return Ok(await VereinRepository.GetVereine());
             }
             catch (Exception)
             {
@@ -33,11 +33,11 @@ namespace VereinManagement.Api.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Saison>> GetSaison(int id)
+        public async Task<ActionResult<Verein>> GetVerein(int id)
         {
             try
             {
-                var result = await SaisonRepository.GetSaison(id);
+                var result = await VereinRepository.GetVerein(id);
 
                 if (result == null)
                 {
@@ -54,20 +54,20 @@ namespace VereinManagement.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Saison>> CreateSaison(Saison Saison)
+        public async Task<ActionResult<Verein>> CreateVerein(Verein Verein)
         {
             try
             {
-                if (Saison == null)
+                if (Verein == null)
                 {
                     return BadRequest();
                 }
 
+               
+                var createdVerein = await VereinRepository.AddVerein(Verein);
 
-                var createdSaison = await SaisonRepository.AddSaison(Saison);
-
-                return CreatedAtAction(nameof(GetSaison), new { id = createdSaison.SaisonID },
-                    createdSaison);
+                return CreatedAtAction(nameof(GetVerein), new { id = createdVerein.Id },
+                    createdVerein);
             }
             catch (Exception)
             {
@@ -77,18 +77,18 @@ namespace VereinManagement.Api.Controllers
         }
 
         [HttpPut()]
-        public async Task<ActionResult<Saison>> UpdateSaison(Saison Saison)
+        public async Task<ActionResult<Verein>> UpdateVerein(Verein Verein)
         {
             try
             {
-                var VereinToUpdate = await SaisonRepository.GetSaison(Saison.SaisonID);
+                var VereinToUpdate = await VereinRepository.GetVerein(Verein.Id);
 
                 if (VereinToUpdate == null)
                 {
-                    return NotFound($"Saison mi der Id = {Saison.SaisonID} nicht gefunden");
+                    return NotFound($"Verein mi der Id = {Verein.Id} nicht gefunden");
                 }
 
-                return await SaisonRepository.UpdateSaison(Saison);
+                return await VereinRepository.UpdateVerein(Verein);
             }
             catch (Exception)
             {
@@ -98,18 +98,18 @@ namespace VereinManagement.Api.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult<Saison>> DeleteSaison(int id)
+        public async Task<ActionResult<Verein>> DeleteVerein(int id)
         {
             try
             {
-                var VereinToDelete = await SaisonRepository.GetSaison(id);
+                var VereinToDelete = await VereinRepository.GetVerein(id);
 
                 if (VereinToDelete == null)
                 {
-                    return NotFound($"Saison mit der Id = {id} nicht gefunden");
+                    return NotFound($"Verein mit der Id = {id} nicht gefunden");
                 }
 
-                return await SaisonRepository.DeleteSaison(id);
+                return await VereinRepository.DeleteVerein(id);
             }
             catch (Exception)
             {

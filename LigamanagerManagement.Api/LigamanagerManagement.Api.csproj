@@ -15,7 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EmployeeManagement.Models\LigaManager.Models.csproj" />
+    <!--<ProjectReference Include="..\EmployeeManagement.Models\LigaManager.Models.csproj" />-->
+    <ProjectReference Include="..\LigamanagerManagement.Models\LigaManager.Models.csproj" />
   </ItemGroup>
 
 

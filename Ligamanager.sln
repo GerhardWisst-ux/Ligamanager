@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LigaManager.Models", "EmployeeManagement.Models\LigaManager.Models.csproj", "{C5C4DBC6-A48E-49DC-9204-49605AC70910}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LigaManager.Models", "LigamanagerManagement.Models\LigaManager.Models.csproj", "{C5C4DBC6-A48E-49DC-9204-49605AC70910}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LigamanagerManagement.Web", "EmployeeManagement.Web\LigamanagerManagement.Web.csproj", "{71A57320-B220-42CD-95F6-DC41E59FA545}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LigamanagerManagement.Web", "LigamanagerManagement.Web\LigamanagerManagement.Web.csproj", "{71A57320-B220-42CD-95F6-DC41E59FA545}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LigamanagerManagement.Api", "EmployeeManagement.Api\LigamanagerManagement.Api.csproj", "{30EB4A0D-8262-4421-ABD8-252BD544D79F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LigamanagerManagement.Api", "LigamanagerManagement.Api\LigamanagerManagement.Api.csproj", "{30EB4A0D-8262-4421-ABD8-252BD544D79F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ligamanager.Components", "PragimTech.Components\Ligamanager.Components.csproj", "{124728C8-8B31-4DA0-BBA9-7F6DC9B131A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ligamanager.Components", "Ligamanager.Components\Ligamanager.Components.csproj", "{124728C8-8B31-4DA0-BBA9-7F6DC9B131A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

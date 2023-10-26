@@ -1,4 +1,5 @@
-﻿using LigamanagerManagement.Web.Services.Contracts;
+﻿using Ligamanager.Components;
+using LigamanagerManagement.Web.Services.Contracts;
 using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace LigamanagerManagement.Web.Pages
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
-        protected Ligamanager.Components.ConfirmBase DeleteConfirmation { get; set; }
+        protected ConfirmBase DeleteConfirmation { get; set; }
 
         protected void Delete_Click()
         {
