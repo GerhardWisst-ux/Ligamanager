@@ -1,0 +1,38 @@
+﻿@page "/"
+@inherits LigaManagerManagement.Web.Pages.EinstiegListBase
+@inject NavigationManager nav
+@attribute [Authorize]
+
+<h3>Start Ligamanager</h3>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            Liga wählen
+            <select id="cboLiga" style="margin-left:5px;" class="form-control dropdown" @onchange="LigaChange">
+                <option value="Bundesliga"> Bundesliga</option>
+                <option value="2. Bundesliga"> 2. Bundesliga</option>
+                <option value="3. Liga"> 3. Liga</option>
+            </select>
+        </div>
+        <div class="col-sm">
+            Saison wählen
+            <select id="cboSpieltage" style="margin-left:5px;" class="form-control dropdown" @onchange="SaisonChange">
+
+                @foreach (var saison in SaisonenList)
+                {
+                    <option value="@saison.Saisonname"> @saison.Saisonname </option>
+                }
+            </select>
+            <br />
+        </div>
+        <div class="col-sm">
+            <br />
+            <linkbutton id="btnUebernehmen" class="btn btn-primary" @onclick='() => nav.NavigateTo("/spieltage")'>
+                Werte übernehmen
+            </linkbutton>
+            <br />
+        </div>
+    </div>
+</div>
+

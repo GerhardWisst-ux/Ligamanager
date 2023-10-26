@@ -1,10 +1,48 @@
 ﻿@page "/vereine"
 @using LigaManagerManagement.Web.Pages;
-@inherits VereineListBase 
+@inherits VereineListBase
 
 @attribute [Authorize]
 
+<style type="text/css">
 
+    .TableElement {
+        border: 0px solid #fff;
+        background-color: transparent;
+    }
+
+    .table td, .table th {
+        padding: 0.05rem !important;
+        vertical-align: top;
+        border-top: 0px solid #dee2e6;
+    }
+
+    h4 {
+        display: flex;
+        flex-direction: row;
+        width: 94%;
+        height: 0.5px;
+    }
+
+        h4:after {
+            content: "";
+            flex: 1 1;
+            border-bottom: 1px solid #000;
+            padding: 0px;
+            margin: -5.5px;
+        }
+
+    table {
+        border-collapse: collapse;
+    }
+
+        table.sectioned tbody {
+            border: 1px solid darkgray;
+            border-collapse: separate;
+            border-spacing: 4px;
+            box-shadow: 3px 3px grey;
+        }
+</style>
 
 @if (Vereine == null)
 {
@@ -18,15 +56,26 @@ else
     {
         <div>
             <EditForm Model="@Vereine">
-                <label>
-                    <InputNumber style="min-height:38px;width:80px;" tabindex="1" @bind-Value=verein.VereinNr />
-                </label>
-                <label>
-                    <InputText style="min-height:38px;width:180px;" tabindex="2" @bind-Value=verein.Vereinsname1 />
-                </label>
+                <table class="table">
+                    @if (verein.VereinNr == 1)
+                    {
+                        <thead class="bg-blue">
+                            <tr>
+                                <th class="priority-1" style="height:40px;max-width:20%;" scope="col">Verein Nr</th>
+                                <th class="priority-1" style="height:40px;max-width:80%;" scope="col">Verein</th>
 
+                            </tr>
+                        </thead>
+                    }
+                    <tbody style="border-width:1px;">
+                        <tr>
+                            <td><InputNumber readonly id="txtVerein1" class="TableElement priority-1" style="max-height:38px; max-width:20%;pointer-events:none;" tabindex="1" @bind-Value=verein.VereinNr /></td>
+                            <td><InputText readonly id="txtVerein2" class="TableElement priority-1" style="max-height:38px; max-width:80%;pointer-events:none;" tabindex="2" @bind-Value=verein.Vereinsname1 /></td>
+                        </tr>
+                    </tbody>
+                </table>
             </EditForm>
-        </div>       
+        </div>
     }
 
     <NavLink class="nav-link" href="/editverein" Match="NavLinkMatch.All">

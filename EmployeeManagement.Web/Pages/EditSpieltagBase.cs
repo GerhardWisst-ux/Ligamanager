@@ -97,7 +97,7 @@ namespace LigamanagerManagement.Web.Pages
             //}
         }
 
-        protected PragimTech.Components.ConfirmBase DeleteConfirmation { get; set; }
+        protected Ligamanager.Components.ConfirmBase DeleteConfirmation { get; set; }
 
         protected void Delete_Click()
         {

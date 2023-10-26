@@ -19,7 +19,7 @@
 }
 else
 {
-    <h2 style="margin-left:5px;">Bundesliga 2023/24 Tabelle</h2>
+    <h2 style="margin-left:5px;">@Ligamanager.Components.Globals.currentLiga @Ligamanager.Components.Globals.currentSaison Tabelle</h2>
     <label>
         <select id="cboSpieltage2" style="margin-left:5px;" class="form-control dropdown" @onchange="SpieltagChange">
 
@@ -29,8 +29,7 @@ else
             }
         </select>
         <br />
-    </label>
-    <p>@SelectedspieltagID</p>
+    </label>    
     <br>
 
     @foreach (var tabelle in Tabellen)
@@ -38,7 +37,6 @@ else
         <EditForm Model="@Tabellen">
             <DisplayTabelle Tabelle="tabelle"></DisplayTabelle>
         </EditForm>
-
     }
 }
 

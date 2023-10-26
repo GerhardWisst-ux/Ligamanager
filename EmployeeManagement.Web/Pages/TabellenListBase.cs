@@ -1,5 +1,6 @@
 ﻿using LigamanagerManagement.Web.Services.Contracts;
 using LigaManagerManagement.Models;
+using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections;
@@ -46,10 +47,9 @@ namespace LigamanagerManagement.Web.Pages
             }
 
             Vereine = await VereineService.GetVereine();
-            Tabellen = await TabelleService.BerechneTabelle(SpieltagService, Vereine, 8);
-           
+            Tabellen = await TabelleService.BerechneTabelle(SpieltagService, Vereine, 1);                        
         }
-
+        
         protected async Task TabelleDeleted()
         {
             Tabellen = (await TabelleService.GetTabellen()).ToList();

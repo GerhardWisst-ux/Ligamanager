@@ -34,7 +34,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EmployeeManagement.Models\LigaManager.Models.csproj" />
-    <ProjectReference Include="..\PragimTech.Components\PragimTech.Components.csproj" />
+    <ProjectReference Include="..\PragimTech.Components\Ligamanager.Components.csproj" />
   </ItemGroup>
 
 </Project>

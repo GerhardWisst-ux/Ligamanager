@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LigamanagerManagement.Web",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LigamanagerManagement.Api", "EmployeeManagement.Api\LigamanagerManagement.Api.csproj", "{30EB4A0D-8262-4421-ABD8-252BD544D79F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PragimTech.Components", "PragimTech.Components\PragimTech.Components.csproj", "{124728C8-8B31-4DA0-BBA9-7F6DC9B131A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ligamanager.Components", "PragimTech.Components\Ligamanager.Components.csproj", "{124728C8-8B31-4DA0-BBA9-7F6DC9B131A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

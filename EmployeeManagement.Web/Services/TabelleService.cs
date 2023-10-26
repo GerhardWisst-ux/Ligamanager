@@ -57,10 +57,12 @@ namespace LigaManagerManagement.Web.Services
             Tabelle tabelleneintrag2;
             var myList = new List<Tabelle>();
             int paarung = 1;
-            
+                                    
             for (int i = 1; i <= spieltag; i++)
             {
-                Spieltag = (await spieltagService.GetSpieltage()).Where(st => st.SpieltagNr == i.ToString()).ToList();
+                Spieltag = (await spieltagService.GetSpieltage()).Where(st => st.SpieltagNr == i.ToString() 
+                                                                    && st.Saison == Ligamanager.Components.Globals.currentSaison)
+                                                                 .ToList();
                                 
                 foreach (var item in Spieltag)
                 {

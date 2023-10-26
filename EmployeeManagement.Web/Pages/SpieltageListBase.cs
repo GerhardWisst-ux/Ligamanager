@@ -13,16 +13,8 @@ namespace LigaManagerManagement.Web.Pages
     {
         public Int32 currentspieltag;
 
-
         public List<DisplaySpieltag> SpieltagList;
-
-        protected string selectedspieltagID;
-
-        protected string SelectedspieltagID
-        {
-            get => selectedspieltagID;
-            set { selectedspieltagID = value; }
-        }
+                
         [Inject]
         public ISpieltagService SpieltagService { get; set; }
 
@@ -42,7 +34,7 @@ namespace LigaManagerManagement.Web.Pages
 
             Vereine = await VereineService.GetVereine();
 
-            Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == "8");
+            Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == "1").Where(st => st.Saison == Ligamanager.Components.Globals.currentSaison);
             Spieltage = Spieltage.OrderBy(o => o.Datum).ToList();
             for (int i = 0; i < Spieltage.Count(); i++)
             {
@@ -57,7 +49,7 @@ namespace LigaManagerManagement.Web.Pages
             if (e.Value != null)
             {
                 currentspieltag = Convert.ToInt32(e.Value);
-                Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == currentspieltag.ToString()).ToList();
+                Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == currentspieltag.ToString()).Where(st => st.Saison == Ligamanager.Components.Globals.currentSaison).ToList();
                 for (int i = 0; i < Spieltage.Count(); i++)
                 {
                     var columns = Spieltage.ElementAt(i);
