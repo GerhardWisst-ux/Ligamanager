@@ -4,6 +4,8 @@ using System;
 using System.Threading.Tasks;
 using LigaManagerManagement.Models;
 using SpieltagManagement.Api.Models;
+using System.Diagnostics;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace VereinManagement.Api.Controllers
 {
@@ -32,12 +34,12 @@ namespace VereinManagement.Api.Controllers
             }
         }
 
-        [HttpGet("{id:int}")]
-        public async Task<ActionResult<Verein>> GetVerein(int id)
+        [HttpGet("{Id:int}")]
+        public async Task<ActionResult<Verein>> GetVerein(int Id)
         {
             try
             {
-                var result = await VereinRepository.GetVerein(id);
+                var result = await VereinRepository.GetVerein(Id);
 
                 if (result == null)
                 {
@@ -62,7 +64,6 @@ namespace VereinManagement.Api.Controllers
                 {
                     return BadRequest();
                 }
-
                
                 var createdVerein = await VereinRepository.AddVerein(Verein);
 
@@ -85,31 +86,32 @@ namespace VereinManagement.Api.Controllers
 
                 if (VereinToUpdate == null)
                 {
-                    return NotFound($"Verein mi der Id = {Verein.Id} nicht gefunden");
+                    return NotFound($"Verein mi der Id = {VereinToUpdate.Id} nicht gefunden");
                 }
-
+                
                 return await VereinRepository.UpdateVerein(Verein);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Debug.Print(ex.StackTrace);
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Fehler beim Update der Daten");
             }
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult<Verein>> DeleteVerein(int id)
+        public async Task<ActionResult<Verein>> DeleteVerein(int Id)
         {
             try
             {
-                var VereinToDelete = await VereinRepository.GetVerein(id);
+                var VereinToDelete = await VereinRepository.GetVerein(Id);
 
                 if (VereinToDelete == null)
                 {
-                    return NotFound($"Verein mit der Id = {id} nicht gefunden");
+                    return NotFound($"Verein mit der Id = {Id} nicht gefunden");
                 }
 
-                return await VereinRepository.DeleteVerein(id);
+                return await VereinRepository.DeleteVerein(Id);
             }
             catch (Exception)
             {

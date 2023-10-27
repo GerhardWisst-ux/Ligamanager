@@ -62,7 +62,11 @@ namespace LigaManagerManagement.Web.Services
                 Spieltag = (await spieltagService.GetSpieltage()).Where(st => st.SpieltagNr == i.ToString() 
                                                                     && st.Saison == Ligamanager.Components.Globals.currentSaison)
                                                                  .ToList();
-                                
+
+                Spieltag = (await spieltagService.GetSpieltage()).Where(st => st.SpieltagNr == i.ToString()
+                                                                   && st.Saison == Ligamanager.Components.Globals.currentSaison)
+                                                                .ToList();
+
                 foreach (var item in Spieltag)
                 {
                     //if (Convert.ToInt32(item.Verein1_Nr) == 17 || Convert.ToInt32(item.Verein2_Nr) == 17)

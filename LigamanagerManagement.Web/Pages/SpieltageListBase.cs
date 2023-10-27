@@ -11,10 +11,10 @@ namespace LigaManagerManagement.Web.Pages
 {
     public class SpieltagListBase : ComponentBase
     {
-        public Int32 currentspieltag;
+        public Int32 currentspieltag = 1;
 
         public List<DisplaySpieltag> SpieltagList;
-                
+
         [Inject]
         public ISpieltagService SpieltagService { get; set; }
 
@@ -22,27 +22,35 @@ namespace LigaManagerManagement.Web.Pages
         public IVereineService VereineService { get; set; }
         public IEnumerable<Spieltag> Spieltage { get; set; }
         public IEnumerable<Verein> Vereine { get; set; }
-             
+
         protected override async Task OnInitializedAsync()
         {
-            SpieltagList = new List<DisplaySpieltag>();
-
-            for (int i = 1; i < 34; i++)
+            try
             {
-                SpieltagList.Add(new DisplaySpieltag(i.ToString(), i.ToString() + ".Spieltag"));
+                SpieltagList = new List<DisplaySpieltag>();
+
+                for (int i = 1; i < 34; i++)
+                {
+                    SpieltagList.Add(new DisplaySpieltag(i.ToString(), i.ToString() + ".Spieltag"));
+                }
+
+                Vereine = await VereineService.GetVereine();
+
+                Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == currentspieltag.ToString()).Where(st => st.Saison == Ligamanager.Components.Globals.currentSaison).ToList();
+                Spieltage = Spieltage.OrderBy(o => o.Datum);
+                for (int i = 0; i < Spieltage.Count(); i++)
+                {
+                    var columns = Spieltage.ElementAt(i);
+                    columns.Verein1 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
+                    columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
+                }
             }
-
-            Vereine = await VereineService.GetVereine();
-
-            Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == "1").Where(st => st.Saison == Ligamanager.Components.Globals.currentSaison);
-            Spieltage = Spieltage.OrderBy(o => o.Datum).ToList();
-            for (int i = 0; i < Spieltage.Count(); i++)
+            catch (Exception)
             {
-                var columns = Spieltage.ElementAt(i);
-                columns.Verein1 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
-                columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
-            }         
-        }      
+
+                throw;
+            }
+        }
 
         public async Task SpieltagChange(ChangeEventArgs e)
         {
@@ -55,11 +63,11 @@ namespace LigaManagerManagement.Web.Pages
                     var columns = Spieltage.ElementAt(i);
                     columns.Verein1 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
                     columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
-                }        
-                
+                }
+
                 if (Spieltage.Count() == 0)
                 {
-                   
+
                 }
             }
         }

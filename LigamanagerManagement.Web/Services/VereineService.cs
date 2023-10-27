@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Components;
 namespace LigaManagerManagement.Web.Services
 {
     public class VereineService : IVereineService
+
     {
         private readonly HttpClient httpClient;
 
@@ -18,9 +19,9 @@ namespace LigaManagerManagement.Web.Services
             this.httpClient = httpClient;
         }
               
-        public Task<Verein> CreateVerein(Verein newVerein)
-        {
-            throw new NotImplementedException();
+        public async Task<Verein> CreateVerein(Verein newVerein)
+        {            
+            return await httpClient.PostJsonAsync<Verein>("api/vereine", newVerein);
         }
 
         public Task DeleteVerein(int id)
@@ -28,9 +29,11 @@ namespace LigaManagerManagement.Web.Services
             throw new NotImplementedException();
         }
 
-        public async Task<Verein> GetVerein(int id)
+       
+
+        public async Task<Verein> GetVerein(int Id)
         {
-            return await httpClient.GetJsonAsync<Verein>($"api/vereine/{id}");
+            return await httpClient.GetJsonAsync<Verein>($"api/vereine/{Id}");
         }
 
         public async Task<IEnumerable<Verein>> GetVereine()

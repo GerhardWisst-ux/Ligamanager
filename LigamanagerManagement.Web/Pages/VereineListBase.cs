@@ -13,16 +13,19 @@ namespace LigaManagerManagement.Web.Pages
         [Inject]
         public IVereineService VereineService { get; set; }
 
-        public IEnumerable<Verein> Vereine { get; set; }
+        protected string CssClass { get; set; } = null;
+        public IEnumerable<Verein> VereineList { get; set; }
+
+        public Verein Vereine { get; set; } = new Verein();
 
         protected override async Task OnInitializedAsync()
         {
-            Vereine = (await VereineService.GetVereine()).ToList();
+            VereineList = (await VereineService.GetVereine()).ToList();
         }
 
         protected async Task VereinDeleted()
         {
-            Vereine = (await VereineService.GetVereine()).ToList();
+            VereineList = (await VereineService.GetVereine()).ToList();
         }
     }
 }

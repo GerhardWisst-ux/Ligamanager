@@ -10,6 +10,7 @@
         <div class="col-sm">
             Liga wählen
             <select id="cboLiga" style="margin-left:5px;" class="form-control dropdown" @onchange="LigaChange">
+                <option value="" selected disabled hidden>Liga wählen</option>
                 <option value="Bundesliga"> Bundesliga</option>
                 <option value="2. Bundesliga"> 2. Bundesliga</option>
                 <option value="3. Liga"> 3. Liga</option>
@@ -18,8 +19,8 @@
         <div class="col-sm">
             Saison wählen
             <select id="cboSpieltage" style="margin-left:5px;" class="form-control dropdown" @onchange="SaisonChange">
-
-                @foreach (var saison in SaisonenList)
+                <option value="" selected disabled hidden>Saison wählen</option>
+                @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
                 {
                     <option value="@saison.Saisonname"> @saison.Saisonname </option>
                 }

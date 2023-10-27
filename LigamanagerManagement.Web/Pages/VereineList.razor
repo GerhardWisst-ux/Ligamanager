@@ -44,47 +44,76 @@
         }
 </style>
 
-@if (Vereine == null)
+@if (VereineList == null)
 {
     <div class="spinner"></div>
 }
 else
 {
-    <h2>Vereine</h2>
-    <br />
-    @foreach (var verein in Vereine)
-    {
-        <div>
-            <EditForm Model="@Vereine">
-                <table class="table">
-                    @if (verein.VereinNr == 1)
-                    {
-                        <thead class="bg-blue">
-                            <tr>
-                                <th class="priority-1" style="height:40px;max-width:20%;" scope="col">Verein Nr</th>
-                                <th class="priority-1" style="height:40px;max-width:80%;" scope="col">Verein</th>
 
-                            </tr>
-                        </thead>
-                    }
-                    <tbody style="border-width:1px;">
-                        <tr>
-                            <td><InputNumber readonly id="txtVerein1" class="TableElement priority-1" style="max-height:38px; max-width:20%;pointer-events:none;" tabindex="1" @bind-Value=verein.VereinNr /></td>
-                            <td><InputText readonly id="txtVerein2" class="TableElement priority-1" style="max-height:38px; max-width:80%;pointer-events:none;" tabindex="2" @bind-Value=verein.Vereinsname1 /></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </EditForm>
+    <div class="row mt-4">
+        <div class="col-6">
+            <h2 >Vereine</h2>
         </div>
-    }
+        <div class="col-4 offset-2">
+            <a href="createverein" style="width:180px;" class="btn btn-primary form-control">Neuer Verein</a>
+        </div>
+        <div class="col-12 p-3">
+            @if (VereineList.Any())
+            {
+                @foreach (var verein in VereineList)
+                {
+                    <EditForm Model="@Vereine">
+                        <table class="table table-bordered">
+                            @if (verein.VereinNr == 1)
+                            {
+                                <thead class="bg-blue">
+                                    <tr>
+                                        <th class="priority-1" style="height:40px;max-width:20%;" scope="col">Verein Nr</th>
+                                        <th class="priority-1" style="height:40px;max-width:80%;" scope="col">Verein</th>
+                                    </tr>
+                                </thead>
+                            }                            
+                            <tbody style="border-width:1px;">
+                                <tr>
+                                    <td><InputNumber readonly id="txtVerein1" class="TableElement priority-1" style="max-height:38px; max-width:20%;pointer-events:none;" tabindex="1" @bind-Value=verein.VereinNr /></td>
+                                    <td><InputText readonly id="txtVerein2" class="TableElement priority-1" style="max-height:38px; max-width:80%;pointer-events:none;" tabindex="2" @bind-Value=verein.Vereinsname1 /></td>
+                                    <td> <NavLink href="@($"editverein/{verein.Id}")" class="btn-primary btn">Bearbeiten</NavLink></td>
+                                    <LigamanagerManagement.Web.Pages.Shared._EditDelete>
+                                    </LigamanagerManagement.Web.Pages.Shared._EditDelete>                                
+                                </tr>
+                            </tbody>
+                        </table>
+                    </EditForm>
+                }
+            }
+            else
+            {             
+                <p>keine Datensätze gefunden.</p>
+            }
+        </div>
+    </div>
 
-    <NavLink class="nav-link" href="/editverein" Match="NavLinkMatch.All">
+    <button onclick="javascript:scrollToTop()" class="btn btn-primary">Nach Oben</button>
+
+    <br />
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js">
+    </script>
+    <script>
+        function scrollToTop() {
+            $(window).scrollTop(0);
+        }
+    </script>
+
+
+    @* <NavLink class="nav-link" href="/editverein" Match="NavLinkMatch.All">
         <span class="oi oi-file" aria-hidden="true"></span>
         Neu
     </NavLink>
     <NavLink class="nav-link" href="/editverein/1" Match="NavLinkMatch.All">
         <span class="oi oi-pencil" aria-hidden="true"></span>
         Bearbeiten
-    </NavLink>
+    </NavLink> *@
 
 }
