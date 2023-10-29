@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SpieltagManagement.Api.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace LigaManagerManagement.Api.Models
@@ -56,9 +57,34 @@ namespace LigaManagerManagement.Api.Models
 
         public async Task<Spieltag> UpdateSpieltag(Spieltag spieltag)
         {
-            var result = await appDbContext.Spieltage.AddAsync(spieltag);
-            await appDbContext.SaveChangesAsync();
-            return result.Entity;
+            try
+            {
+                var result = await appDbContext.Spieltage
+                .FirstOrDefaultAsync(e => e.SpieltagId == spieltag.SpieltagId);
+
+                if (result != null)
+                {
+                    result.Verein1 = spieltag.Verein1;
+                    result.Verein2 = spieltag.Verein2;
+                    result.Tore1_Nr = spieltag.Tore1_Nr;
+                    result.Tore2_Nr = spieltag.Tore2_Nr;
+                    result.Ort = spieltag.Ort;
+                    result.Datum = spieltag.Datum;
+                    result.Available = spieltag.Available;
+                    result.SpieltagNr = spieltag.SpieltagNr;
+
+                    await appDbContext.SaveChangesAsync();
+
+                    return result;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(ex.StackTrace);
+                return null;
+            }
+
         }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SpieltagManagement.Api.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -52,9 +53,29 @@ namespace LigaManagerManagement.Api.Models
 
         public async Task<Verein> UpdateVerein(Verein Verein)
         {
-            var result = await appDbContext.Vereine.AddAsync(Verein);
-            await appDbContext.SaveChangesAsync();
-            return result.Entity;
+            try
+            {
+                var result = await appDbContext.Vereine
+                .FirstOrDefaultAsync(e => e.Id == Verein.Id);
+
+                if (result != null)
+                {
+                    result.VereinNr = Verein.VereinNr;
+                    result.Vereinsname1 = Verein.Vereinsname1;
+                    result.Vereinsname2 = Verein.Vereinsname2;
+                    
+                    await appDbContext.SaveChangesAsync();
+
+                    return result;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(ex.StackTrace);
+                return null;
+            }      
+        
         }
     }
 }

@@ -13,34 +13,37 @@ namespace LigaManagerManagement.Web.Pages
 {
     public class EinstiegListBase : ComponentBase
     {
-       
-
         [Inject]
         public ISaisonenService SaisonenService { get; set; }
 
-        public List<DisplaySaison> SaisonenList;             
-        
+        public List<DisplaySaison> SaisonenList;
+
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
+
+        [Inject]
+        public IVereineService _VereineService { get; set; }
 
         public IEnumerable<Saison> Saisonen { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
             SaisonenList = new List<DisplaySaison>();
-            Saisonen = (await SaisonenService.GetSaisonen()).ToList();                      
+            Saisonen = (await SaisonenService.GetSaisonen()).ToList();
 
             for (int i = 0; i < Saisonen.Count(); i++)
             {
                 var columns = Saisonen.ElementAt(i);
-                SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));                
+                SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
             }
 
             if (DateTime.Now.Month > 6)
             {
-                Ligamanager.Components.Globals.currentSaison = DateTime.Now.Year + "/" + (DateTime.Now.Year + 1);                
+                Ligamanager.Components.Globals.currentSaison = DateTime.Now.Year + "/" + (DateTime.Now.Year + 1);
             }
             else
             {
-                Ligamanager.Components.Globals.currentSaison = (DateTime.Now.Year  - 1) + "/" + DateTime.Now.Year;                
+                Ligamanager.Components.Globals.currentSaison = (DateTime.Now.Year - 1) + "/" + DateTime.Now.Year;
             }
             Ligamanager.Components.Globals.currentLiga = "Bundesliga";
 
@@ -59,20 +62,26 @@ namespace LigaManagerManagement.Web.Pages
             if (e.Value != null)
             {
                 Ligamanager.Components.Globals.currentLiga = e.Value.ToString();
-                
             }
         }
-       
+
         public class DisplaySaison
         {
 
             public DisplaySaison(int saisonID, string saisonname)
             {
                 SaisonID = saisonID;
-                Saisonname = saisonname;              
+                Saisonname = saisonname;
             }
             public int SaisonID { get; set; }
-            public string Saisonname { get; set; }            
+            public string Saisonname { get; set; }
+        }
+
+        public async void OnClickHandler()
+        {
+            Ligamanager.Components.Globals.VereinAktSaison = (await _VereineService.GetVereine()).Take(18);
+            NavigationManager.NavigateTo("spieltage", true);
+
         }
     }
 }

@@ -27,27 +27,7 @@ namespace LigamanagerManagement.Web.Pages
         {
             //Vereine = await VereineService.GetVereine();
             Saisonen = await SaisonenService.GetSaisonen();           
-        }                    
-        //public class DisplaySaison
-        //{
-        //    public DisplaySaison(string saisonID, string saisonname, string liganame, bool aktuell, bool abgeschlossen)
-        //    {
-        //        SaisonID = saisonID;
-        //        Saisonname = saisonname;
-        //        Liganame = liganame;
-        //        Aktuell = aktuell;
-        //        Abgeschlossen = abgeschlossen;
-        //    }
-        //    public string SaisonID { get; set; }
-        //    public string Saisonname { get; set; }
-
-        //    public string Liganame { get; set; }
-
-        //    public bool Aktuell { get; set; }
-
-        //    public bool Abgeschlossen { get; set; }
-
-        //}
+        }                         
 
     }
 }

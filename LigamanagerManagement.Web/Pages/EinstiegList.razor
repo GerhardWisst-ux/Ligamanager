@@ -1,6 +1,6 @@
 ﻿@page "/"
 @inherits LigaManagerManagement.Web.Pages.EinstiegListBase
-@inject NavigationManager nav
+
 @attribute [Authorize]
 
 <h3>Start Ligamanager</h3>
@@ -29,11 +29,12 @@
         </div>
         <div class="col-sm">
             <br />
-            <linkbutton id="btnUebernehmen" class="btn btn-primary" @onclick='() => nav.NavigateTo("/spieltage")'>
+            <linkbutton id="btnUebernehmen" class="btn btn-primary" @onclick=OnClickHandler >
                 Werte übernehmen
             </linkbutton>
             <br />
         </div>
     </div>
 </div>
+
 

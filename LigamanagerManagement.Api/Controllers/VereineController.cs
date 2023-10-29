@@ -86,7 +86,7 @@ namespace VereinManagement.Api.Controllers
 
                 if (VereinToUpdate == null)
                 {
-                    return NotFound($"Verein mi der Id = {VereinToUpdate.Id} nicht gefunden");
+                    return NotFound($"Verein mit der Id = {VereinToUpdate.Id} nicht gefunden");
                 }
                 
                 return await VereinRepository.UpdateVerein(Verein);

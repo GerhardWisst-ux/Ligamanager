@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using LigamanagerManagement.Web.Services.Contracts;
 using LigaManagerManagement.Models;
+using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using SpieltagManagement.Web.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -13,6 +15,8 @@ namespace LigamanagerManagement.Web.Pages
 {
     public class EditSpieltagBase : ComponentBase
     {
+        public Int32 currentspieltag = 1;
+
         [CascadingParameter]
         public Task<AuthenticationState> authenticationStateTask { get; set; }
 
@@ -21,26 +25,23 @@ namespace LigamanagerManagement.Web.Pages
 
         public string PageHeaderText { get; set; }
 
-        private Spieltag spieltag { get; set; } = new Spieltag();
+        public IEnumerable<Spieltag> spieltage { get; set; }
 
         public EditSpieltagModel EditSpieltagModel { get; set; } =
             new EditSpieltagModel();
 
-        [Inject]
-        public IDepartmentService DepartmentService { get; set; }
-
-        public List<Verein> Vereine { get; set; } =
-            new List<Verein>();
+        public List<DisplaySpieltag> SpieltagList;
 
         [Parameter]
         public string Id { get; set; }
 
         [Inject]
         public IMapper Mapper { get; set; }
-
+                    
+        
         [Inject]
         public NavigationManager NavigationManager { get; set; }
-
+               
         protected async override Task OnInitializedAsync()
         {
             var authenticationState = await authenticationStateTask;
@@ -51,50 +52,24 @@ namespace LigamanagerManagement.Web.Pages
                 NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
             }
 
-            int.TryParse(Id, out int spieltagId);
+            SpieltagList = new List<DisplaySpieltag>();
 
-            if (spieltagId != 0)
+            for (int i = 1; i < 34; i++)
             {
-                PageHeaderText = "Bearbeiten Spieltag";
-                spieltag = await SpieltagService.GetSpieltag(int.Parse(Id));
-            }
-            else
-            {
-                PageHeaderText = "Neuer Spieltag";
-                spieltag = new Spieltag
-                {
-                    Verein1_Nr = "16",
-                    Verein2_Nr = "5",
-                    Tore1_Nr = 5,
-                    Tore2_Nr = 0,
-                    Datum = DateTime.Now,
-                    Ort = "MHP-Arena",
-                };
+                SpieltagList.Add(new DisplaySpieltag(i.ToString(), i.ToString() + ".Spieltag"));
             }
 
-            //Departments = (await DepartmentService.GetDepartments()).ToList();
-            //Mapper.Map(Employee, EditEmployeeModel);
+
         }
 
-        protected async Task HandleValidSubmit()
+        public async Task SpieltagChange(ChangeEventArgs e)
         {
-            //Todo
-            //Mapper.Map(EditEmployeeModel, Spieltag);
-
-            //Employee result = null;
-
-            //if (spieltag != 0)
-            //{
-            //    result = await SpieltagService.UpdateSpieltag(Spieltag);
-            //}
-            //else
-            //{
-            //    result = await SpieltagService.CreateEmployee(Employee);
-            //}
-            //if (result != null)
-            //{
-            //    NavigationManager.NavigateTo("/");
-            //}
+            if (e.Value != null)
+            {
+                currentspieltag = Convert.ToInt32(e.Value);
+                spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == currentspieltag.ToString()).Where(st => st.Saison == Ligamanager.Components.Globals.currentSaison).ToList();
+                
+            }
         }
 
         protected Ligamanager.Components.ConfirmBase DeleteConfirmation { get; set; }
@@ -104,13 +79,17 @@ namespace LigamanagerManagement.Web.Pages
             DeleteConfirmation.Show();
         }
 
-        protected async Task ConfirmDelete_Click(bool deleteConfirmed)
+        public class DisplaySpieltag
         {
-            if (deleteConfirmed)
+
+            public DisplaySpieltag(string nummer, string name)
             {
-                await SpieltagService.DeleteSpieltag(spieltag.SpieltagId);
-                NavigationManager.NavigateTo("/");
+                Nummer = nummer;
+                Name = name;
             }
+            public string Nummer { get; set; }
+            public string Name { get; set; }
+
         }
     }
 }

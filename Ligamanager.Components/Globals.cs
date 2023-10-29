@@ -1,6 +1,5 @@
-﻿using System;
+﻿using LigaManagerManagement.Models;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Ligamanager.Components
 {
@@ -8,5 +7,6 @@ namespace Ligamanager.Components
     {
         public static string currentSaison;
         public static string currentLiga;
+        public static IEnumerable<Verein> VereinAktSaison { get; set; }
     }
 }

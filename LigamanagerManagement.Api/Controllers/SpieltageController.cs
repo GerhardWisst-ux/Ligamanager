@@ -1,4 +1,5 @@
-﻿using LigaManagerManagement.Models;
+﻿using LigaManagerManagement.Api.Models;
+using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SpieltagManagement.Api.Models;
@@ -64,7 +65,6 @@ namespace LigaManagerManagement.Api.Controllers
                 {
                     return BadRequest();
                 }
-
                
                 var createdSpieltag = await SpieltagRepository.AddSpieltag(spieltag);
 
@@ -79,34 +79,36 @@ namespace LigaManagerManagement.Api.Controllers
         }
 
         [HttpPut()]
-        public async Task<ActionResult<Spieltag>> UpdateSpieltag(Spieltag spieltag)
+        [HttpPut()]
+        public async Task<ActionResult<Spieltag>> UpdateVerein(Spieltag Spieltag)
         {
             try
             {
-                var employeeToUpdate = await SpieltagRepository.GetSpieltag(spieltag.SpieltagId);
+                var VereinToUpdate = await SpieltagRepository.GetSpieltag(Spieltag.SpieltagId);
 
-                if (employeeToUpdate == null)
+                if (VereinToUpdate == null)
                 {
-                    return NotFound($"Spieltag mi der Id = {spieltag.SpieltagId} nicht gefunden");
+                    return NotFound($"Spieltag mit der Id = {Spieltag.SpieltagId} nicht gefunden");
                 }
 
-                return await SpieltagRepository.UpdateSpieltag(spieltag);
+                return await SpieltagRepository.UpdateSpieltag(Spieltag);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Debug.Print(ex.StackTrace);
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Fehler beim Update der Daten");
             }
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult<Spieltag>> DeleteEmployee(int id)
+        public async Task<ActionResult<Spieltag>> DeleteSpieltag(int id)
         {
             try
             {
-                var employeeToDelete = await SpieltagRepository.GetSpieltag(id);
+                var spieltagToDelete = await SpieltagRepository.GetSpieltag(id);
 
-                if (employeeToDelete == null)
+                if (spieltagToDelete == null)
                 {
                     return NotFound($"Spieltag mit der Id = {id} nicht gefunden");
                 }

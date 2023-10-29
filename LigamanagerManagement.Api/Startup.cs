@@ -33,6 +33,7 @@ namespace LigaManagerManagement.Api
 
             services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<ILigaRepository, LigaRepository>();
 
             services.AddControllers();
         }

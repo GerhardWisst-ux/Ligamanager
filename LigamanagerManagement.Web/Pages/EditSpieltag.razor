@@ -1,77 +1,149 @@
 ﻿@page "/editspieltag/{id}"
-@page "/editspieltag"
+@page "/createpieltag"
 
 @inherits EditSpieltagBase
+@using LigamanagerManagement.Web.Services.Contracts;
+@inject ISpieltagService _SpieltagService
+@inject IVereineService _VereineService
+@inject NavigationManager _navigationManager
 
-<EditForm Model="@EditSpieltagModel" OnValidSubmit="HandleValidSubmit">
-    <ObjectGraphDataAnnotationsValidator />
-    <h3>@PageHeaderText</h3>
-    <hr />
-    <div class="form-group row">
-        <label for="verein1" class="col-sm-2 col-form-label">
-            Verein 1
+<div class="row my-2">    
+    <div class="col-10">
+        @if (spieltage == null)
+        {
+            <div class="spinner"></div>
+        }
+        else
+        {
+            <h2 style="display:inline">Spieltag @Ligamanager.Components.Globals.currentLiga @Ligamanager.Components.Globals.currentSaison </h2>
+            <label>
+            
+            <select id="cboSpieltage" style="min-height:38px;margin-left:5px;" class="form-control" @onchange="SpieltagChange">
+
+                @foreach (var spieltagL in SpieltagList)
+                {
+                    <option value="@spieltagL.Nummer"> @spieltagL.Name </option>
+                }
+            </select>
+            <br />           
         </label>
-        <div class="col-sm-10">
-            <InputText id="verein1" class="form-control" placeholder="Verein 1"
-            @bind-Value="EditSpieltagModel.Verein1.Vereinsname1" />
-            <ValidationMessage For="@(() => EditSpieltagModel.Verein1.Vereinsname1)" />
-        </div>
+            <EditForm Model="spieltage" OnValidSubmit="UpsertVerein">
+                <div class="container-fluid">
+                    @foreach (var spieltag in spieltage)
+                    {
+                        <div class="row">
+                            <div class="col-4">
+                                <InputSelect id="cboVerein1" class="form-control" @bind-Value="spieltag.Verein1_Nr">
+                                    if (Ligamanager.Components.Globals.VereinAktSaison == null)
+                                    {
+
+                                    }
+                                    else
+                                    {
+                                    @foreach (var verein in Ligamanager.Components.Globals.VereinAktSaison)
+                                    {
+                                        <option value="@verein.VereinNr">@verein.Vereinsname1</option>
+                                    }
+                                </InputSelect>
+                                @* <InputText required id="txtVerein1" @bind-Value="spieltag.Verein1_Nr" class="form-control"></InputText> *@
+                                <ValidationMessage For="()=>spieltag.Verein1_Nr"></ValidationMessage>
+                            </div>
+                            <div class="col-2">
+                                <InputNumber required id="txtTore1" @bind-Value="spieltag.Tore1_Nr" class="form-control"></InputNumber>
+                                <ValidationMessage For="()=>spieltag.Tore1_Nr"></ValidationMessage>
+                            </div>
+                            <div class="col-2">
+                                <InputNumber required id="txtTore2" @bind-Value="spieltag.Tore2_Nr" class="form-control"></InputNumber>
+                                <ValidationMessage For="()=>spieltag.Tore2_Nr"></ValidationMessage>
+                            </div>
+                            <div class="col-4">
+                                <InputSelect id="cboVerein2" class="form-control" @bind-Value="spieltag.Verein2_Nr">
+                                    if (Ligamanager.Components.Globals.VereinAktSaison == null)
+                                    {
+
+                                    }
+                                    else
+                                    {
+                                    @foreach (var verein in Ligamanager.Components.Globals.VereinAktSaison)
+                                    {
+                                        <option value="@verein.VereinNr">@verein.Vereinsname2</option>
+                                    }
+                                </InputSelect>
+
+                                @* <InputText required id="txtVerein2" @bind-Value="spieltag.Verein2_Nr" class="form-control"></InputText> *@
+                                <ValidationMessage For="()=>spieltag.Verein2_Nr"></ValidationMessage>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="form-group py-2">
+                    <button class="btn btn-primary">Speichern</button>
+                    <NavLink href="/spieltage" class="btn btn-secondary">Zurück</NavLink>
+                </div>
+            </EditForm>
+        }
+       
     </div>
-    <div class="form-group row">
-        <label for="verein2" class="col-sm-2 col-form-label">
-           Verein 2
-        </label>
-        <div class="col-sm-10">
-            <InputText id="verein2" class="form-control" placeholder="Verein 2"
-            @bind-Value="EditSpieltagModel.Verein2.Vereinsname1" />
-            <ValidationMessage For="@(() => EditSpieltagModel.Verein2.Vereinsname2)" />
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for="tore1" class="col-sm-2 col-form-label">
-            Tore 1
-        </label>
-        <div class="col-sm-10">
-            <InputNumber id="tore1" class="form-control" placeholder="Tore 1"
-            @bind-Value="EditSpieltagModel.Tore1" />
-            <ValidationMessage For="@(() => EditSpieltagModel.Tore1)" />
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for="tore1" class="col-smComponent.razor-2 col-form-label">
-            Tore 2
-        </label>
-        <div class="col-sm-10">
-            <InputNumber id="tore1" class="form-control" placeholder="Tore 2"
-            @bind-Value="EditSpieltagModel.Tore2" />
-            <ValidationMessage For="@(() => EditSpieltagModel.Tore2)" />
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for="ort" class="col-sm-2 col-form-label">
-            Ort
-        </label>
-        <div class="col-sm-10">
-            <InputText id="ort" class="form-control" placeholder="Ort"
-            @bind-Value="EditSpieltagModel.Ort" />
-            <ValidationMessage For="@(() => EditSpieltagModel.Ort)" />
-        </div>
-    </div>  
-    <div class="form-group row">
-        <label for="Datum" class="col-sm-2 col-form-label">
-            Datum
-        </label>
-        <div class="col-sm-10">
-            <InputDate @bind-Value="EditSpieltagModel.Datum" placeholder="Datum" class="form-control" />
-        </div>
-    </div>
-    <button class="btn btn-primary" type="submit">Abschicken</button>
-    @if (EditSpieltagModel.SpieltagId > 0)
+</div>
+
+@code {
+
+    [Parameter]
+    public string Titel { get; set; }
+    public bool IsLoading { get; set; }
+    public IEnumerable<Verein> Vereine { get; set; }
+    public IEnumerable<Liga> VereineMax { get; set; }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        <button class="btn btn-danger" type="button" @onclick="Delete_Click">Löschen</button>
-    }   
-</EditForm>
+        if (firstRender)
+        {
+            if (Id == "0" || Id is null)
+            {
+                //Neuanlage
+                Titel = "Neuanlage";
+                Id = "0";
+                IsLoading = false;
+            }
+            else
+            {
+                //Bearbeiten
+                Titel = "Bearbeiten";
+                await LoadSpieltage();
+            }
+        }
+    }
 
-@* <Confirm @ref="DeleteConfirmation" ConfirmationChanged="ConfirmDelete_Click"
-         ConfirmationMessage=@($"Möchten Sie den Datensatz mit der ID löschen \"{EditSpieltagModel.SpieltagId}\"")>
-</Confirm> *@
+    private async Task LoadSpieltage()
+    {
+        IsLoading = true;
+        StateHasChanged();
+        spieltage = (await _SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == "1").Where(st => st.Saison == Ligamanager.Components.Globals.currentSaison).ToList(); 
+        IsLoading = false;
+        StateHasChanged();
+    }
+    private async Task UpsertVerein()
+    {
+        if (Id == "0")
+        {
+            // VereineMax = await _SpieltagService.GetSpieltage();
+            // Liga.Verband = "AFC";
+            // Liga.Erstaustragung = new DateTime(1924, 7, 1);
+            // Liga.Absteiger = 4;
+            // Liga.Aktiv = "1";
+            foreach (var begegnung in spieltage)
+            {
+                await _SpieltagService.CreateSpieltag(begegnung);
+            }
+           
+        }
+        else
+        {
+            //update
+            foreach (var begegnung in spieltage)
+            {
+                await _SpieltagService.UpdateSpieltag(begegnung);
+            }
+        }
+        _navigationManager.NavigateTo("spieltage");
+    }
+}

@@ -1,6 +1,6 @@
-﻿@page "/vereine"
+﻿@page "/ligen"
 @using LigaManagerManagement.Web.Pages;
-@inherits VereineListBase
+@inherits LigenListBase
 
 @attribute [Authorize]
 
@@ -50,7 +50,7 @@
         }
 </style>
 
-@if (VereineList == null)
+@if (LigenList == null)
 {
     <div class="spinner"></div>
 }
@@ -59,32 +59,36 @@ else
 
     <div class="row mt-4">
         <div class="col-6">
-            <h2 >Vereine</h2>
+            <h2 >Ligen</h2>
         </div>
-        <div class="col-4 offset-3">
-            <a href="createverein" style="width:180px;" class="btn btn-primary form-control">Neuer Verein</a>
-        </div>
+        <div class="col-1 offset-11">
+            <a href="createliga" style="width:auto;" class="btn btn-primary form-control">Neu</a>
+        </div>        
         <div class="col-12 p-3">
-            @if (VereineList.Any())
+            @if (LigenList.Any())
             {
-                @foreach (var verein in VereineList)
+                @foreach (var liga in LigenList)
                 {
-                    <EditForm Model="@Vereine">
+                    <EditForm Model="@Ligen">
                         <table class="table table-bordered">
-                            @if (verein.VereinNr == 1)
+                            @if (liga.Id == 1)
                             {
                                 <thead class="bg-blue">
                                     <tr>
-                                        <th class="priority-1" style="height:40px;max-width:20%;" scope="col">Verein Nr</th>
-                                        <th class="priority-1" style="height:40px;max-width:80%;" scope="col">Verein</th>
+                                        <th class="priority-1" style="height:40px;max-width:20%;" scope="col">Liga Nr</th>
+                                        <th class="priority-1" style="height:40px;max-width:30%;" scope="col">Liga</th>
+                                        <th class="priority-1" style="height:40px;max-width:30%;" scope="col">Verband</th>
+                                        <th class="priority-1" style="height:40px;max-width:20%;" scope="col">Start</th>
                                     </tr>
                                 </thead>
                             }                            
                             <tbody style="border-width:1px;">
                                 <tr>
-                                    <td><InputNumber readonly id="txtVerein1" class="TableElement priority-1" style="max-height:38px; max-width:20%;pointer-events:none;" tabindex="1" @bind-Value=verein.VereinNr /></td>
-                                    <td><InputText readonly id="txtVerein2" class="TableElement priority-1" style="max-height:38px; max-width:80%;pointer-events:none;" tabindex="2" @bind-Value=verein.Vereinsname1 /></td>
-                                    <td> <NavLink href="@($"editverein/{verein.Id}")" class="btn-primary btn">Bearbeiten</NavLink></td>
+                                    <td><InputNumber readonly id="txtVerein1" class="TableElement priority-1" style="max-height:20px; max-width:20%;pointer-events:none;" tabindex="1" @bind-Value=liga.Id /></td>
+                                    <td><InputText readonly id="txtVerein2" class="TableElement priority-1" style="max-height:30px; max-width:80%;pointer-events:none;" tabindex="2" @bind-Value=liga.Liganame /></td>
+                                    <td><InputText readonly id="txtVerband" class="TableElement priority-1" style="max-height:30px; max-width:80%;pointer-events:none;" tabindex="3" @bind-Value=liga.Verband /></td>
+                                    <td><InputDate readonly id="txtDatum" class="TableElement priority-1" style="max-height:20px; max-width:80%;pointer-events:none;" tabindex="4" @bind-Value=liga.Erstaustragung /></td>
+                                    <td> <NavLink href="@($"editliga/{liga.Id}")" class="btn-primary btn">Bearbeiten</NavLink></td>
                                     <LigamanagerManagement.Web.Pages.Shared._EditDelete>
                                     </LigamanagerManagement.Web.Pages.Shared._EditDelete>                                
                                 </tr>
