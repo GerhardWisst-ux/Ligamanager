@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using LigamanagerManagement.Web.Services.Contracts;
+﻿using LigamanagerManagement.Web.Services.Contracts;
 using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace LigaManagerManagement.Web.Services
 {
-    public class VereineService : IVereineService
+    public class VereineService: IVereineService
 
     {
         private readonly HttpClient httpClient;
@@ -27,9 +26,7 @@ namespace LigaManagerManagement.Web.Services
         public Task DeleteVerein(int id)
         {
             throw new NotImplementedException();
-        }
-
-       
+        }              
 
         public async Task<Verein> GetVerein(int Id)
         {

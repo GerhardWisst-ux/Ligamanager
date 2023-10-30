@@ -1,5 +1,5 @@
 ﻿@page "/editspieltag/{id}"
-@page "/createpieltag"
+@page "/createspieltag"
 
 @inherits EditSpieltagBase
 @using LigamanagerManagement.Web.Services.Contracts;
@@ -7,7 +7,7 @@
 @inject IVereineService _VereineService
 @inject NavigationManager _navigationManager
 
-<div class="row my-2">    
+<div class="row my-2">
     <div class="col-10">
         @if (spieltage == null)
         {
@@ -15,62 +15,61 @@
         }
         else
         {
-            <h2 style="display:inline">Spieltag @Ligamanager.Components.Globals.currentLiga @Ligamanager.Components.Globals.currentSaison </h2>
-            <label>
-            
-            <select id="cboSpieltage" style="min-height:38px;margin-left:5px;" class="form-control" @onchange="SpieltagChange">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-4">
+                        <h2 style="display:inline">@Ligamanager.Components.Globals.currentLiga @Ligamanager.Components.Globals.currentSaison </h2>
+                    </div>
+                    <div class="col-2">
+                        <label style="display:inline">
+                            <select id="cboSpieltage" style="min-height:38px;margin-left:5px;" class="form-control" @onchange="SpieltagChange">
 
-                @foreach (var spieltagL in SpieltagList)
-                {
-                    <option value="@spieltagL.Nummer"> @spieltagL.Name </option>
-                }
-            </select>
-            <br />           
-        </label>
+                                @foreach (var spieltagL in SpieltagList)
+                                {
+                                    <option value="@spieltagL.Nummer"> @spieltagL.Name </option>
+                                }
+                            </select>
+                            <br />
+                        </label>
+                    </div>
+                </div>
+            </div>
+
             <EditForm Model="spieltage" OnValidSubmit="UpsertVerein">
                 <div class="container-fluid">
                     @foreach (var spieltag in spieltage)
                     {
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-4 p-1">
                                 <InputSelect id="cboVerein1" class="form-control" @bind-Value="spieltag.Verein1_Nr">
-                                    if (Ligamanager.Components.Globals.VereinAktSaison == null)
-                                    {
-
-                                    }
-                                    else
+                                    if (Ligamanager.Components.Globals.VereinAktSaison != null)
                                     {
                                     @foreach (var verein in Ligamanager.Components.Globals.VereinAktSaison)
                                     {
-                                        <option value="@verein.VereinNr">@verein.Vereinsname1</option>
+                                        <option value="@verein.Key">@verein.Value</option>
+                                    }
                                     }
                                 </InputSelect>
-                                @* <InputText required id="txtVerein1" @bind-Value="spieltag.Verein1_Nr" class="form-control"></InputText> *@
                                 <ValidationMessage For="()=>spieltag.Verein1_Nr"></ValidationMessage>
                             </div>
                             <div class="col-2">
-                                <InputNumber required id="txtTore1" @bind-Value="spieltag.Tore1_Nr" class="form-control"></InputNumber>
+                                <InputNumber required id="txtTore1" style="min-width:80px;" @bind-Value="spieltag.Tore1_Nr" class="form-control"></InputNumber>
                                 <ValidationMessage For="()=>spieltag.Tore1_Nr"></ValidationMessage>
                             </div>
                             <div class="col-2">
-                                <InputNumber required id="txtTore2" @bind-Value="spieltag.Tore2_Nr" class="form-control"></InputNumber>
+                                <InputNumber required id="txtTore2" style="min-width:80px;" @bind-Value="spieltag.Tore2_Nr" class="form-control"></InputNumber>
                                 <ValidationMessage For="()=>spieltag.Tore2_Nr"></ValidationMessage>
                             </div>
                             <div class="col-4">
                                 <InputSelect id="cboVerein2" class="form-control" @bind-Value="spieltag.Verein2_Nr">
-                                    if (Ligamanager.Components.Globals.VereinAktSaison == null)
-                                    {
-
-                                    }
-                                    else
+                                    if (Ligamanager.Components.Globals.VereinAktSaison != null)
                                     {
                                     @foreach (var verein in Ligamanager.Components.Globals.VereinAktSaison)
                                     {
-                                        <option value="@verein.VereinNr">@verein.Vereinsname2</option>
+                                        <option value="@verein.Key">@verein.Value</option>
+                                    }
                                     }
                                 </InputSelect>
-
-                                @* <InputText required id="txtVerein2" @bind-Value="spieltag.Verein2_Nr" class="form-control"></InputText> *@
                                 <ValidationMessage For="()=>spieltag.Verein2_Nr"></ValidationMessage>
                             </div>
                         </div>
@@ -82,7 +81,7 @@
                 </div>
             </EditForm>
         }
-       
+
     </div>
 </div>
 
@@ -117,7 +116,7 @@
     {
         IsLoading = true;
         StateHasChanged();
-        spieltage = (await _SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == "1").Where(st => st.Saison == Ligamanager.Components.Globals.currentSaison).ToList(); 
+        spieltage = (await _SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == Id).Where(st => st.Saison == Ligamanager.Components.Globals.currentSaison).ToList();
         IsLoading = false;
         StateHasChanged();
     }
@@ -125,25 +124,19 @@
     {
         if (Id == "0")
         {
-            // VereineMax = await _SpieltagService.GetSpieltage();
-            // Liga.Verband = "AFC";
-            // Liga.Erstaustragung = new DateTime(1924, 7, 1);
-            // Liga.Absteiger = 4;
-            // Liga.Aktiv = "1";
             foreach (var begegnung in spieltage)
             {
                 await _SpieltagService.CreateSpieltag(begegnung);
             }
-           
+
         }
         else
         {
-            //update
             foreach (var begegnung in spieltage)
             {
                 await _SpieltagService.UpdateSpieltag(begegnung);
             }
         }
-        _navigationManager.NavigateTo("spieltage");
+        //_navigationManager.NavigateTo("spieltage");
     }
 }

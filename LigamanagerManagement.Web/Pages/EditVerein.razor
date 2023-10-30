@@ -15,6 +15,16 @@
                 <InputText required id="txtVereinsname" @bind-Value="Verein.Vereinsname1" class="form-control"></InputText>
                 <ValidationMessage For="()=>Verein.Vereinsname1"></ValidationMessage>
             </div>
+            <div class="form-group">
+                <label>Stadion</label>
+                <InputText required id="txtVereinsname" @bind-Value="Verein.Stadion" class="form-control"></InputText>
+                <ValidationMessage For="()=>Verein.Stadion"></ValidationMessage>
+            </div>
+            <div class="form-group">
+                <label>Erfolge</label>
+                <InputText required id="txtVereinsname" @bind-Value="Verein.Erfolge" class="form-control"></InputText>
+                <ValidationMessage For="()=>Verein.Erfolge"></ValidationMessage>
+            </div>
             <div class="form-group py-2">
                 <button class="btn btn-primary">Speichern</button>
                 <NavLink href="/vereine" class="btn btn-secondary">Zurück</NavLink>

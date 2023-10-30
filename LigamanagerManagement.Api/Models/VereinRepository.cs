@@ -63,7 +63,9 @@ namespace LigaManagerManagement.Api.Models
                     result.VereinNr = Verein.VereinNr;
                     result.Vereinsname1 = Verein.Vereinsname1;
                     result.Vereinsname2 = Verein.Vereinsname2;
-                    
+                    result.Stadion = Verein.Stadion;
+                    result.Erfolge = Verein.Erfolge;
+
                     await appDbContext.SaveChangesAsync();
 
                     return result;

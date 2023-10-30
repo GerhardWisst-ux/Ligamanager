@@ -41,7 +41,7 @@ namespace LigamanagerManagement.Web.Pages
         {
             SpieltagList = new List<DisplaySpieltag>();
 
-            for (int i = 1; i < 34; i++)
+            for (int i = 1; i <= 34; i++)
             {
                 SpieltagList.Add(new DisplaySpieltag(i.ToString(), i.ToString() + ".Spieltag"));
             }

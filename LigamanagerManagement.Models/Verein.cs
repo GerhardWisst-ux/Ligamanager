@@ -10,11 +10,20 @@ namespace LigaManagerManagement.Models
         [Required]
         public int VereinNr { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Vereinsanme erforderlich.")]
         public string Vereinsname1 { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Vereinsanme erforderlich.")]
         public string Vereinsname2 { get; set; }
+
+        [Required(ErrorMessage = "Stadion erforderlich.")]
+        public string Stadion { get; set; }
+
+        public string Fassungsvermoegen { get; set; }
+
+        public string Erfolge { get; set; }
+
+        public int Gegruendet { get; set; }
 
 
     }
