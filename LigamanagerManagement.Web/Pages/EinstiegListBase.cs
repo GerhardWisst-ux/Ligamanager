@@ -103,7 +103,7 @@ namespace LigaManagerManagement.Web.Pages
         {
 
             DataTable importedData = new DataTable();
-            sFilename = "C:\\Users\\gwiss\\source\\repos\\Ligamanager\\Data\\2006.csv";
+            sFilename = "C:\\Users\\gwiss\\source\\repos\\Ligamanager\\Data\\1995.csv";
             try
             {
                 using (StreamReader sr = new StreamReader(sFilename, Encoding.GetEncoding("iso-8859-1")))
@@ -173,7 +173,7 @@ namespace LigaManagerManagement.Web.Pages
 
                         SqlCommand cmd = new SqlCommand("INSERT INTO spieltage (Saison,SpieltagNr,Verein1,Verein2,Verein1_Nr,Verein2_Nr, Tore1_Nr, Tore2_Nr, Ort,Datum,Available ) " +
                                                           "VALUES (@Saison,@SpieltagNr, @Verein1,@Verein2,@Verein1_Nr,@Verein2_Nr,@Tore1_Nr, @Tore2_Nr,@Ort,@Datum, @Available)", conn);
-                        cmd.Parameters.AddWithValue("@Saison", "2006/07"); /*String.Concat(sFilename.Substring(0, 4), "/", (Convert.ToInt32(sFilename.Substring(0, 4)) + 1).ToString())); ;*/
+                        cmd.Parameters.AddWithValue("@Saison", "1995/96"); /*String.Concat(sFilename.Substring(0, 4), "/", (Convert.ToInt32(sFilename.Substring(0, 4)) + 1).ToString())); ;*/
                         cmd.Parameters.AddWithValue("@SpieltagNr", spieltag);
                         cmd.Parameters.AddWithValue("@Verein1", importRow["Hometeam"].ToString().Trim());
                         cmd.Parameters.AddWithValue("@Verein2", importRow["AwayTeam"].ToString().Trim());
