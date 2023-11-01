@@ -14,7 +14,7 @@ namespace Ligamanager.Components
         public string ConfirmationTitle { get; set; } = "Bestätigung Löschen";
 
         [Parameter]
-        public string ConfirmationMessage { get; set; } = "Sind Sie sicher löschen zu wollen";
+        public string ConfirmationMessage { get; set; } = "Sind Sie sicher diesen Datensatz löschen zu wollen";
 
         public void Show()
         {
