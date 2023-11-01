@@ -3,6 +3,7 @@ using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -44,10 +45,10 @@ namespace LigaManagerManagement.Web.Pages
                     columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
                 }
             }
-            catch (Exception)
+            catch (Exception ex )
             {
 
-                throw;
+                Debug.Print(ex.Message);
             }
         }
 
@@ -70,10 +71,40 @@ namespace LigaManagerManagement.Web.Pages
                 }
             }
         }
+        public async Task SpieltagZurueck()
+        {
+            if (currentspieltag > 1)
+                currentspieltag = currentspieltag - 1;
+            else
+                return;
 
+            Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == currentspieltag.ToString()).Where(st => st.Saison == Ligamanager.Components.Globals.currentSaison).ToList();
+            for (int i = 0; i < Spieltage.Count(); i++)
+            {
+                var columns = Spieltage.ElementAt(i);
+                columns.Verein1 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
+                columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
+            }
+        }
+
+        public async Task SpieltagVor()
+        {
+            //ToDo AktMaxspieltag
+            if (currentspieltag < 34)
+                currentspieltag = currentspieltag + 1;
+            else
+                return;
+
+            Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == currentspieltag.ToString()).Where(st => st.Saison == Ligamanager.Components.Globals.currentSaison).ToList();
+            for (int i = 0; i < Spieltage.Count(); i++)
+            {
+                var columns = Spieltage.ElementAt(i);
+                columns.Verein1 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
+                columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
+            }
+        }
         public class DisplaySpieltag
         {
-
             public DisplaySpieltag(string nummer, string name)
             {
                 Nummer = nummer;

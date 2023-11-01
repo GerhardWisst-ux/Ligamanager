@@ -2,41 +2,46 @@
 @inherits TabellenListBase
 @attribute [Authorize]
 
-<style type="text/css">
-    .list-group-item {
-        position: relative;
-        display: block;
-        padding: 0.5rem 0.5rem !important;
-        margin-bottom: -1px;
-        background-color: #fff;
-        border: 1px solid rgba(0,0,0,.125);
-    }
-
-</style>
 @if (Tabellen == null)
 {
     <div class="spinner"></div>
 }
 else
 {
-    <h2 style="margin-left:5px;">@Ligamanager.Components.Globals.currentLiga @Ligamanager.Components.Globals.currentSaison Tabelle</h2>
-    <label>
-        <select id="cboSpieltage2" style="margin-left:5px;" class="form-control dropdown" @onchange="SpieltagChange">
 
+    <h2>@Ligamanager.Components.Globals.currentLiga Tabelle</h2>
+
+    <label>
+        <select id="cboSaison" style="margin-left:5px;" class="form-control dropdown" @onchange="SaisonChange">
+            <option value="" selected>@saison</option>
+            @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
+            {
+                <option value="@saison.Saisonname"> @saison.Saisonname </option>
+            }
+        </select>
+        <br />
+    </label>
+    <label>
+        <select id="cboSpieltage" style="margin-left:5px;" class="form-control dropdown" @onchange="SpieltagChange">
+            <option value="" selected>@currentspieltag. Spieltag</option>
             @foreach (var spieltag in SpieltagList)
             {
                 <option value="@spieltag.Nummer"> @spieltag.Name </option>
             }
         </select>
         <br />
-    </label>    
+    </label>
     <br>
-
     @foreach (var tabelle in Tabellen)
     {
         <EditForm Model="@Tabellen">
+            <!-- This will validate the form -->
+            <DataAnnotationsValidator />
+            <!-- This will show any validation errors -->
+            <ValidationSummary />
             <DisplayTabelle Tabelle="tabelle"></DisplayTabelle>
         </EditForm>
     }
+
 }
 

@@ -3,42 +3,37 @@
 
 @attribute [Authorize]
 
-<h3>Start Ligamanager</h3>
+
 
 <div class="container">
+    <h3>Start Ligamanager</h3>
     <div class="row">
-        <div class="col-sm">
-            Liga wählen
+        <div class="col-sm mt-2">            
             <select id="cboLiga" style="margin-left:5px;" class="form-control dropdown" @onchange="LigaChange">
-                <option value="" selected disabled hidden>Liga wählen</option>
+                <option value="" selected required>Liga wählen</option>
                 <option value="Bundesliga"> Bundesliga</option>
                 <option value="2. Bundesliga"> 2. Bundesliga</option>
                 <option value="3. Liga"> 3. Liga</option>
             </select>
         </div>
-        <div class="col-sm">
-            Saison wählen
-            <select id="cboSpieltage" style="margin-left:5px;" class="form-control dropdown" @onchange="SaisonChange">
-                <option value="" selected disabled hidden>Saison wählen</option>
+        <div class="col-sm mt-2">           
+            <select id="cboSaison" style="margin-left:5px;" class="form-control dropdown" @onchange="SaisonChange">
+                <option value="" selected required >Saison wählen</option>
                 @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
                 {
                     <option value="@saison.Saisonname"> @saison.Saisonname </option>
                 }
-            </select>
-            <br />
+            </select>            
         </div>
-        <div class="col-sm">
-            <br />
-            <linkbutton id="btnUebernehmen" class="btn btn-primary" @onclick=OnClickHandler>
+        <div class="col-sm mt-2">            
+            <linkbutton title="Werte übernehmen" style="margin-left:5px;" id="btnUebernehmen" class="btn btn-primary" @onclick=OnClickHandler>
                 Werte übernehmen
-            </linkbutton>
-            <br />
+            </linkbutton>            
         </div>
-
     </div>
-    <div class="row">
+    <div class="row mt-3">
         <div class="col-sm">
-            <linkbutton id="btnImport" class="btn btn-primary" @onclick=OnClickHandlerImport>
+            <linkbutton id="btnImport" style="margin-left:5px;"  class="btn btn-primary" @onclick=OnClickHandlerImport>
                 Import CSV
             </linkbutton>
         </div>

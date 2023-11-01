@@ -8,56 +8,56 @@
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <ul class="nav flex-column">
         <AuthorizeView>
-            <Authorized >
+            <Authorized>
                 <li class="nav-item px-3">
                     <NavLink class="nav-link" style="display:none;" href="" Match="NavLinkMatch.All">
-                        <span class="oi oi-home" aria-hidden="true"></span> Home
+                        <span class="oi oi-home" aria-hidden="true"></span> Start
                     </NavLink>
                 </li>
-                <li class="nav-item px-3">
-                    <NavLink class="nav-link" href="/spieltage" Match="NavLinkMatch.All">
-                        <span class="oi oi-home" aria-hidden="true"></span> Spieltage
-                    </NavLink>
-                </li>
-                <li class="nav-item px-3">
-                    <NavLink class="nav-link" href="/tabellen" Match="NavLinkMatch.All">
-                        <span class="oi oi-home" aria-hidden="true"></span> Tabellen
-                    </NavLink>
-                </li>
-                <li class="nav-item px-3">
-                    <NavLink class="nav-link" href="/vereine" Match="NavLinkMatch.All">
-                        <span class="oi oi-home" aria-hidden="true"></span> Vereine
-                    </NavLink>
-                </li>
-                <li class="nav-item px-3">
-                    <NavLink class="nav-link" href="/saisonen" Match="NavLinkMatch.All">
-                        <span class="oi oi-home" aria-hidden="true"></span> Saisonen
-                    </NavLink>
-                </li>
-                <li class="nav-item px-3">
-                    <NavLink class="nav-link" href="/ligen" Match="NavLinkMatch.All">
-                        <span class="oi oi-home" aria-hidden="true"></span> Ligen
-                    </NavLink>
-                </li>
-               @*  <li class="nav-item px-3">
-                    <NavLink class="nav-link" href="/createspieltag" @onclick="HandleClick" Match="NavLinkMatch.All">
-                        <span class="oi oi-file" aria-hidden="true"></span> Neuer Spieltag
-                    </NavLink>
-                </li>
-                <li class="nav-item px-3">
-                    <NavLink class="nav-link" href="/editspieltag/5" Match="NavLinkMatch.All">
-                        <span class="oi oi-pencil" aria-hidden="true"></span> Bearbeiten Spieltag
-                    </NavLink>
-                </li> *@
+                @if (Ligamanager.Components.Globals.bVisibleNavMenuElements == true)
+                {
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" href="/spieltage" Match="NavLinkMatch.All">
+                            <span class="oi oi-home" aria-hidden="true"></span> Spieltage
+                        </NavLink>
+                    </li>
+                }
+                @if (Ligamanager.Components.Globals.bVisibleNavMenuElements == true)
+                {
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" visble="@Ligamanager.Components.Globals.bVisibleNavMenuElements" href="/tabellen" Match="NavLinkMatch.All">
+                            <span class="oi oi-home" aria-hidden="true"></span> Tabellen
+                        </NavLink>
+                    </li>
+                }
+                @if (Ligamanager.Components.Globals.bVisibleNavMenuElements == true)
+                {
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" href="/vereine" Match="NavLinkMatch.All">
+                            <span class="oi oi-home" aria-hidden="true"></span> Vereine
+                        </NavLink>
+                    </li>
+                }
+                @if (Ligamanager.Components.Globals.bVisibleNavMenuElements == true)
+                {
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" href="/saisonen" Match="NavLinkMatch.All">
+                            <span class="oi oi-home" aria-hidden="true"></span> Saisonen
+                        </NavLink>
+                    </li>
+                }
+                @if (Ligamanager.Components.Globals.bVisibleNavMenuElements == true)
+                {
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" href="/ligen" Match="NavLinkMatch.All">
+                            <span class="oi oi-home" aria-hidden="true"></span> Ligen
+                        </NavLink>
+                    </li>
+                }
                 <li class="nav-item px-3">
                     <NavLink class="nav-link" href="/identity/account/logout" Match="NavLinkMatch.All">
-                        <span class="oi oi-power-standby" aria-hidden="true"></span> 
+                        <span class="oi oi-power-standby" aria-hidden="true"></span>
                         Logout @context.User.Identity.Name
-                    </NavLink>
-                </li>
-                <li class="nav-item px-3">
-                    <NavLink class="nav-link" href="/Test" Match="NavLinkMatch.All">
-                        <span class="oi oi-arrow-circle-left" aria-hidden="true"></span> Test Binding
                     </NavLink>
                 </li>
             </Authorized>

@@ -8,7 +8,7 @@ namespace LigamanagerManagement.Web.Services.Contracts
     {
         Task<IEnumerable<Tabelle>> GetTabellen();
         Task<Tabelle> GetTabelle(int id);
-        Task<IEnumerable<Tabelle>> BerechneTabelle(ISpieltagService spieltagService, IEnumerable<Verein> vereine, int iSpieltag);
+        Task<IEnumerable<Tabelle>> BerechneTabelle(ISpieltagService spieltagService, IEnumerable<Verein> vereine, int iSpieltag, string iSaison);
         Task<Tabelle> UpdateTabelle(Tabelle updatedTabelle);
         Task<Tabelle> CreateTabelle(Tabelle newTabelle);
         Task DeleteTabelle(int id);

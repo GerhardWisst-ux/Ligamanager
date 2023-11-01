@@ -29,10 +29,7 @@ namespace LigaManagerManagement.Api
             services.AddScoped<ISpieltagRepository, SpieltagRepository>();
             services.AddScoped<IVereinRepository, VereinRepository>();
             services.AddScoped<ITabelleRepository, TabelleRepository>();
-            services.AddScoped<ISaisonRepository, SaisonRepository>();
-
-            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
-            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<ISaisonRepository, SaisonRepository>();                       
             services.AddScoped<ILigaRepository, LigaRepository>();
 
             services.AddControllers();

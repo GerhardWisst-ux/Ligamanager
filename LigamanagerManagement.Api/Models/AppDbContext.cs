@@ -14,13 +14,11 @@ namespace LigaManagerManagement.Api.Models
         {
         }
 
-        public DbSet<Employee> Employees { get; set; }
-        public DbSet<Department> Departments { get; set; }
         public DbSet<Spieltag> Spieltage { get; set; }
         public DbSet<Verein> Vereine { get; set; }
         public DbSet<Tabelle> Tabellen { get; set; }
         public DbSet<Saison> Saisonen { get; set; }
         public DbSet<Liga> Ligen { get; set; }
-       
+
     }
 }

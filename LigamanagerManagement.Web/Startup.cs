@@ -1,18 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using LigamanagerManagement.Web.Services.Contracts;
-using LigaManagerManagement.Web.Models;
 using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace LigaManagerManagement.Web
 {
@@ -33,8 +27,7 @@ namespace LigaManagerManagement.Web
                 .AddCookie();
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddAutoMapper(typeof(EmployeeProfile));
-
+          
             services.AddHttpClient<ISpieltagService, SpieltagService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:44379/");
@@ -54,15 +47,7 @@ namespace LigaManagerManagement.Web
             {
                 client.BaseAddress = new Uri("https://localhost:44379/");
             });
-            services.AddHttpClient<IEmployeeService, EmployeeService>(client =>
-            {
-                client.BaseAddress = new Uri("https://localhost:44379/");
-            });
-            services.AddHttpClient<IDepartmentService, DepartmentService>(client =>
-            {
-                client.BaseAddress = new Uri("https://localhost:44379/");
-            });
-
+            
             services.AddHttpClient<ILigaService, LigaService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:44379/");

@@ -75,19 +75,19 @@ else
                             {
                                 <thead class="bg-blue">
                                     <tr>
-                                        <th class="priority-1" style="height:40px;max-width:20%;" scope="col">Verein Nr</th>
-                                        <th class="priority-1" style="height:40px;max-width:50%;" scope="col">Verein</th>
-                                        <th class="priority-1" style="height:40px;max-width:20%;" scope="col">Stadion</th>
+                                        <th class="priority-1" style="height:40px;max-width:8px;" scope="col">Verein Nr</th>
+                                        <th class="priority-1" style="height:40px;max-width:100%;" scope="col">Verein</th>
+                                        <th class="priority-1" style="height:40px;max-width:100%;" scope="col">Stadion</th>
                                         <th class="priority-1" style="height:40px;max-width:100%;" scope="col">Erfolge</th>
                                     </tr>
                                 </thead>
                             }                            
                             <tbody style="border-width:1px;">
                                 <tr>
-                                    <td><InputNumber readonly id="txtVerein1" class="TableElement priority-1" style="max-height:38px; max-width:20%;pointer-events:none;" tabindex="1" @bind-Value=verein.VereinNr /></td>
-                                    <td><InputText readonly id="txtVerein2" class="TableElement priority-1" style="max-height:38px; max-width:80%;pointer-events:none;" tabindex="2" @bind-Value=verein.Vereinsname1 /></td>
-                                    <td><InputText readonly id="txtStadion" class="TableElement priority-1" style="max-height:38px; max-width:80%;pointer-events:none;" tabindex="2" @bind-Value=verein.Stadion /></td>
-                                    <td><InputText readonly id="txtErfolge" class="TableElement priority-1" style="max-height:38px; max-width:80%;pointer-events:none;" tabindex="2" @bind-Value=verein.Erfolge /></td>
+                                    <td><InputNumber readonly id="txtVerein1" class="TableElement priority-1" style="max-height:38px; max-width:80px;pointer-events:none;" tabindex="1" @bind-Value=verein.VereinNr /></td>
+                                    <td><InputText readonly id="txtVerein2" class="TableElement priority-1" style="max-height:38px; max-width:100%;pointer-events:none;" tabindex="2" @bind-Value=verein.Vereinsname1 /></td>
+                                    <td><InputText readonly id="txtStadion" class="TableElement priority-1" style="max-height:38px; max-width:100%;pointer-events:none;" tabindex="2" @bind-Value=verein.Stadion /></td>
+                                    <td><InputText readonly id="txtErfolge" class="TableElement priority-1" style="max-height:38px; max-width:100%;pointer-events:none;" tabindex="2" @bind-Value=verein.Erfolge /></td>
                                     <td> <NavLink href="@($"editverein/{verein.Id}")" class="btn-primary btn">Bearbeiten</NavLink></td>
                                     <LigamanagerManagement.Web.Pages.Shared._EditDelete>
                                     </LigamanagerManagement.Web.Pages.Shared._EditDelete>
@@ -108,17 +108,4 @@ else
     </div>
 
    
-
-    <br />
-
-
-    @* <NavLink class="nav-link" href="/editverein" Match="NavLinkMatch.All">
-        <span class="oi oi-file" aria-hidden="true"></span>
-        Neu
-    </NavLink>
-    <NavLink class="nav-link" href="/editverein/1" Match="NavLinkMatch.All">
-        <span class="oi oi-pencil" aria-hidden="true"></span>
-        Bearbeiten
-    </NavLink> *@
-
 }

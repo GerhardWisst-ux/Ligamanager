@@ -21,8 +21,7 @@ namespace LigaManagerManagement.Web.Services
         public TabelleService(HttpClient httpClient)
         {
             this.httpClient = httpClient;
-        }
-                
+        }               
 
         public Task<Tabelle> CreateTabelle(Tabelle newTabelle)
         {
@@ -47,10 +46,13 @@ namespace LigaManagerManagement.Web.Services
         public async Task<Tabelle> UpdateTabelle(Tabelle updatedTabelle)
         {
             return await httpClient.PutJsonAsync<Tabelle>("api/Tabellen", updatedTabelle);
-        }         
-              
+        }     
 
-        public async Task<IEnumerable<Tabelle>> BerechneTabelle(ISpieltagService spieltagService, IEnumerable<Verein> Vereine, int spieltag)
+        public async Task<IEnumerable<Tabelle>> BerechneTabelle(ISpieltagService spieltagService, 
+                                                IEnumerable<Verein> 
+                                                Vereine, 
+                                                int spieltag,
+                                                string sSaison)
         {
             Tabelle tabelleneintrag1;
             Tabelle tabelleneintrag2;
@@ -59,18 +61,13 @@ namespace LigaManagerManagement.Web.Services
                                     
             for (int i = 1; i <= spieltag; i++)
             {
-                Spieltag = (await spieltagService.GetSpieltage()).Where(st => st.SpieltagNr == i.ToString() 
-                                                                    && st.Saison == Ligamanager.Components.Globals.currentSaison)
-                                                                 .ToList();
-
-                Spieltag = (await spieltagService.GetSpieltage()).Where(st => st.SpieltagNr == i.ToString()
-                                                                   && st.Saison == Ligamanager.Components.Globals.currentSaison)
-                                                                .ToList();
+                Spieltag = (await spieltagService.GetSpieltage()).Where(st => st.Saison == sSaison
+                                                                    && st.SpieltagNr == i.ToString())
+                                                                 .ToList();                             
 
                 foreach (var item in Spieltag)
                 {
-                    //if (Convert.ToInt32(item.Verein1_Nr) == 17 || Convert.ToInt32(item.Verein2_Nr) == 17)
-                    //    Debug.Print("Darmstadt");
+                    int Saison = 0;                    
 
                     Tabelle tabelleneintragF = myList.FirstOrDefault(element => element.VereinNr == Convert.ToInt32(item.Verein1_Nr));
                     Tabelle tabelleneintragF2 = myList.FirstOrDefault(element => element.VereinNr == Convert.ToInt32(item.Verein2_Nr));
@@ -86,7 +83,13 @@ namespace LigaManagerManagement.Web.Services
                             tabelleneintrag1.TorePlus = Convert.ToInt32(item.Tore1_Nr);
                             tabelleneintrag1.ToreMinus = Convert.ToInt32(item.Tore2_Nr);
                             tabelleneintrag1.Spiele = 1;
-                            tabelleneintrag1.Punkte = 3;
+                            
+                                Int32.TryParse(item.Saison.Substring(0, 4),out Saison);
+                            if (Saison >1994)
+                                tabelleneintrag1.Punkte = 3;
+                            else
+                                tabelleneintrag1.Punkte = 2;
+
                             tabelleneintrag1.Gewonnen = 1;
                             tabelleneintrag1.Untentschieden = 0;
                             tabelleneintrag1.Verloren = 0;
@@ -156,7 +159,12 @@ namespace LigaManagerManagement.Web.Services
                             tabelleneintrag2.TorePlus = Convert.ToInt32(item.Tore2_Nr);
                             tabelleneintrag2.ToreMinus = Convert.ToInt32(item.Tore1_Nr);
                             tabelleneintrag2.Spiele = 1;
-                            tabelleneintrag2.Punkte = 3;
+
+                            if (Saison > 1994)
+                                tabelleneintrag2.Punkte = 3;
+                            else
+                                tabelleneintrag2.Punkte = 2;
+                            
                             tabelleneintrag2.Gewonnen = 1;
                             tabelleneintrag2.Untentschieden = 0;
                             tabelleneintrag2.Verloren = 0;
