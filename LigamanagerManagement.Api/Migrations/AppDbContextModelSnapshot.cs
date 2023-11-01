@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace LigaManagerManagement.Api.Migrations
+namespace LigamanagerManagement.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot
@@ -18,59 +18,6 @@ namespace LigaManagerManagement.Api.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("LigaManagerManagement.Models.Department", b =>
-                {
-                    b.Property<int>("DepartmentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("DepartmentName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("DepartmentId");
-
-                    b.ToTable("Departments");
-                });
-
-            modelBuilder.Entity("LigaManagerManagement.Models.Employee", b =>
-                {
-                    b.Property<int>("EmployeeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DateOfBrith")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DepartmentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Gender")
-                        .HasColumnType("int");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhotoPath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("EmployeeId");
-
-                    b.HasIndex("DepartmentId");
-
-                    b.ToTable("Employees");
-                });
 
             modelBuilder.Entity("LigaManagerManagement.Models.Liga", b =>
                 {
@@ -269,17 +216,6 @@ namespace LigaManagerManagement.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Vereine");
-                });
-
-            modelBuilder.Entity("LigaManagerManagement.Models.Employee", b =>
-                {
-                    b.HasOne("LigaManagerManagement.Models.Department", "Department")
-                        .WithMany()
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Department");
                 });
 #pragma warning restore 612, 618
         }

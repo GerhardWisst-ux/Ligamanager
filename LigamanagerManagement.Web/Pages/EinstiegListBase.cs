@@ -160,7 +160,7 @@ namespace LigaManagerManagement.Web.Pages
             {
                 Vereine = await VereineService.GetVereine();
 
-                using (SqlConnection conn = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;database=EmployeeDB;Integrated Security=True"))
+                using (SqlConnection conn = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;database=LigaDB;Integrated Security=True"))
                 {
                     int i = 1;
                     int spieltag = 1;

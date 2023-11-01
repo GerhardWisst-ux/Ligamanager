@@ -5,6 +5,7 @@ namespace LigaManagerManagement.Models
 {
     public class Spieltag
     {
+        [Key]
         public int SpieltagId { get; set; }
 
         [Required]

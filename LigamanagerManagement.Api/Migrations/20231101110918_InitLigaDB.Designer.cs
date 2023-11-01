@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace LigaManagerManagement.Api.Migrations
+namespace LigamanagerManagement.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231019133132_MTSpieltagVerein")]
-    partial class MTSpieltagVerein
+    [Migration("20231101110918_InitLigaDB")]
+    partial class InitLigaDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,60 +21,65 @@ namespace LigaManagerManagement.Api.Migrations
                 .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("EmployeeManagement.Models.Department", b =>
+            modelBuilder.Entity("LigaManagerManagement.Models.Liga", b =>
                 {
-                    b.Property<int>("DepartmentId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("DepartmentName")
-                        .IsRequired()
+                    b.Property<int>("Absteiger")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Aktiv")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("DepartmentId");
-
-                    b.ToTable("Departments");
-                });
-
-            modelBuilder.Entity("EmployeeManagement.Models.Employee", b =>
-                {
-                    b.Property<int>("EmployeeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DateOfBrith")
+                    b.Property<DateTime>("Erstaustragung")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DepartmentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
+                    b.Property<string>("Liganame")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Gender")
-                        .HasColumnType("int");
-
-                    b.Property<string>("LastName")
+                    b.Property<string>("Verband")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhotoPath")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("Id");
 
-                    b.HasKey("EmployeeId");
-
-                    b.HasIndex("DepartmentId");
-
-                    b.ToTable("Employees");
+                    b.ToTable("Ligen");
                 });
 
-            modelBuilder.Entity("EmployeeManagement.Models.Spieltag", b =>
+            modelBuilder.Entity("LigaManagerManagement.Models.Saison", b =>
+                {
+                    b.Property<int>("SaisonID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Abgeschlossen")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Aktuell")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("LigaID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Liganame")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Saisonname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SaisonID");
+
+                    b.ToTable("Saisonen");
+                });
+
+            modelBuilder.Entity("LigaManagerManagement.Models.Spieltag", b =>
                 {
                     b.Property<int>("SpieltagId")
                         .ValueGeneratedOnAdd()
@@ -105,7 +110,15 @@ namespace LigaManagerManagement.Api.Migrations
                     b.Property<int>("Tore2_Nr")
                         .HasColumnType("int");
 
+                    b.Property<string>("Verein1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Verein1_Nr")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Verein2")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -113,17 +126,12 @@ namespace LigaManagerManagement.Api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("VereinId")
-                        .HasColumnType("int");
-
                     b.HasKey("SpieltagId");
-
-                    b.HasIndex("VereinId");
 
                     b.ToTable("Spieltage");
                 });
 
-            modelBuilder.Entity("EmployeeManagement.Models.Tabelle", b =>
+            modelBuilder.Entity("LigaManagerManagement.Models.Tabelle", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -161,8 +169,9 @@ namespace LigaManagerManagement.Api.Migrations
                     b.Property<int>("Untentschieden")
                         .HasColumnType("int");
 
-                    b.Property<int?>("VereinId")
-                        .HasColumnType("int");
+                    b.Property<string>("Verein")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("VereinNr")
                         .HasColumnType("int");
@@ -172,17 +181,28 @@ namespace LigaManagerManagement.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("VereinId");
-
                     b.ToTable("Tabellen");
                 });
 
-            modelBuilder.Entity("EmployeeManagement.Models.Verein", b =>
+            modelBuilder.Entity("LigaManagerManagement.Models.Verein", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Erfolge")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Fassungsvermoegen")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Gegruendet")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Stadion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("VereinNr")
                         .HasColumnType("int");
@@ -198,35 +218,6 @@ namespace LigaManagerManagement.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Vereine");
-                });
-
-            modelBuilder.Entity("EmployeeManagement.Models.Employee", b =>
-                {
-                    b.HasOne("EmployeeManagement.Models.Department", "Department")
-                        .WithMany()
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Department");
-                });
-
-            modelBuilder.Entity("EmployeeManagement.Models.Spieltag", b =>
-                {
-                    b.HasOne("EmployeeManagement.Models.Verein", "Verein")
-                        .WithMany()
-                        .HasForeignKey("VereinId");
-
-                    b.Navigation("Verein");
-                });
-
-            modelBuilder.Entity("EmployeeManagement.Models.Tabelle", b =>
-                {
-                    b.HasOne("EmployeeManagement.Models.Verein", "Verein")
-                        .WithMany()
-                        .HasForeignKey("VereinId");
-
-                    b.Navigation("Verein");
                 });
 #pragma warning restore 612, 618
         }

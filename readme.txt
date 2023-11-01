@@ -1,0 +1,1 @@
+Die Dateien im Verzeichnis LigamanagerManagement.Api.DB müssen ins lokale Vezeichnis des aktuellen Benutzers gespeichert werden 

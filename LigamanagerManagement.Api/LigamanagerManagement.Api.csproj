@@ -19,5 +19,9 @@
     <ProjectReference Include="..\LigamanagerManagement.Models\LigaManager.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DB\" />
+  </ItemGroup>
+
 
 </Project>
